@@ -54,8 +54,20 @@ cmp.setup.filetype({ "sql" }, {
 	}
 })
 
-cmp.setup.filetype({ "redis" }, {
-	sources = {
-		{ name = 'buffer' },
+
+local lspkind = require('lspkind')
+cmp.setup {
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = 'symbol',
+			maxwidth = 50,
+
+			ellipsis_char = '...',
+			show_labelDetails = true,
+
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization.
+			-- before = function (entry, vim_item) return vim_item end
+		})
 	}
-})
+}
