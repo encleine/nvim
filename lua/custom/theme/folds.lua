@@ -7,8 +7,9 @@ local function tabs_to_spaces(text)
 end
 
 function _G.FoldText()
+	local lines = vim.v.foldend - vim.v.foldstart
 	local start = vim.fn.getline(vim.v.foldstart)
-	return tabs_to_spaces(start) .. " .. " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
+	return tabs_to_spaces(start) .. " - " .. tostring(lines) .. " - " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
 end
 
 vim.opt.foldtext = 'v:lua.FoldText()'

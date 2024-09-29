@@ -1,5 +1,6 @@
 local DropDownThem = { winblend = 10 }
 local NoPreview = { theme = "dropdown", winblend = 10, previewer = false }
+local actions = require "telescope.actions"
 
 require('telescope').setup {
 	defaults = {
@@ -7,6 +8,8 @@ require('telescope').setup {
 			i = {
 				['<C-u>'] = false,
 				['<C-d>'] = false,
+				['<C-j>'] = actions.move_selection_next,
+				['<C-k>'] = actions.move_selection_previous,
 			},
 		},
 	},
