@@ -13,7 +13,6 @@ ffi.cdef([[
 ]])
 
 
-
 local function fold_info(args)
 	local lnum = args.lnum
 	local currFold = C.fold_info(args.wp, lnum)
@@ -33,7 +32,6 @@ local function foldfunc(args)
 	local width = args.fold.width
 	if width == 0 then return "" end
 
-
 	local fold = fold_info(args)
 	local sep = "%#ErrorMsg#"
 	local level = fold.level
@@ -41,17 +39,9 @@ local function foldfunc(args)
 	local range = level < width and level or width
 	local start = fold.start
 
-
-	-- local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
-	-- if math.abs(args.lnum - r) > 50 then
-	-- 	return sep .. "🮲🮳"
-	-- end
-
-
 	if level == 0 then
 		return (" "):rep(width) .. "%*"
 	end
-
 
 	if closed and level == 1 then
 		-- sep = sep .. "🮯"
@@ -68,7 +58,6 @@ local function foldfunc(args)
 		sep = sep .. "┃"
 	end
 
-
 	if range < width then
 		sep = sep .. (" "):rep(width - range)
 	end
@@ -78,19 +67,30 @@ end
 
 local builtin = require("statuscol.builtin")
 
+local function lnumfunc(args, segment)
+	if args.sclnu and segment.sign and segment.sign.wins[args.win].signs[args.lnum] then
+		return "%=" .. builtin.signfunc(args, segment)
+	end
+	if not args.rnu and not args.nu then return "" end
+	if args.virtnum ~= 0 then return "%=" end
+
+	local lnum = args.rnu and (args.relnum > 0 and args.relnum or (args.nu and args.lnum or 0)) or args.lnum
+	local sep = "%=" .. lnum
+
+	if args.rnu and args.relnum <= 0 and args.nu then
+		sep = "%#string#" .. sep
+	end
+
+	return string.rep(' ', 6 - #sep) .. sep .. ' '
+end
+
 require("statuscol").setup(
 	{
 		relculright = true,
 		segments = {
 			{ text = { foldfunc }, },
 			{
-				text = {
-					function(args)
-						local st = builtin.lnumfunc(args, args.lnum)
-						st = string.sub(st, 1, #st)
-						return string.rep(' ', 5 - #st) .. st .. ' '
-					end,
-				},
+				text = { lnumfunc },
 			},
 			{
 				text = { "%s" },
