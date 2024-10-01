@@ -16,7 +16,7 @@ require('telescope').setup {
 
 	pickers = {
 		find_files = NoPreview,
-		current_buffer_fuzzy_find = NoPreview,
+		current_buffer_fuzzy_find = DropDownThem,
 		git_branches = NoPreview,
 		buffers = DropDownThem,
 		git_status = DropDownThem,
@@ -34,6 +34,6 @@ vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find exist
 vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Search [G]it [B]branches' })
 vim.keymap.set('n', '<leader>gd', builtin.git_status, { desc = 'Search [G]it [D]if Files' })
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.lsp_document_symbols, { desc = '[S]earch [S]ymbols' })
-vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = '[S]earch [S]ymbols' })
+vim.keymap.set('n', '<leader>sw', builtin.lsp_dynamic_workspace_symbols, { desc = '[S]earch [W]orkspace' })

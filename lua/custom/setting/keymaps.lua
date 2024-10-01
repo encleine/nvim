@@ -36,7 +36,7 @@ vim.keymap.set('n', '<C-d>', function()
 	end
 
 	vim.cmd.normal { cmd, bang = true }
-end, { silent = true })
+end, { silent = true, desc = '[D]uplicate line' })
 
 
 -- [[ stops yanking after paste over ]]
@@ -75,4 +75,4 @@ vim.keymap.set('n', 'dp', function()
 
 	local cmd = '%x' .. string.format("%dG%d|x", r, c + 1)
 	vim.cmd.normal { cmd, bang = true }
-end, { silent = true })
+end, { silent = true, desc = '[D]eleting [P]arenthesis' })
