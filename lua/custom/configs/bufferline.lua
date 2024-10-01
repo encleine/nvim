@@ -1,8 +1,9 @@
 local colors = require('custom.theme.colors')
+local git = require('custom.functions.git')
 
 local function GitStatus(result)
-	local status = vim.b.gitsigns_status_dict or {}
-	if status == {} then return result end
+	local status = git.Get_git_repo_status()
+	if not status then return result end
 
 	if status.added ~= 0 then
 		table.insert(result, { text = " \u{f0ef0} " .. status.added, fg = colors.green })
@@ -16,6 +17,10 @@ local function GitStatus(result)
 		table.insert(result, { text = ' \u{f0234} ' .. status.removed, fg = colors.red })
 	end
 
+	if status.untracked ~= 0 then
+		table.insert(result, { text = ' \u{f4e8} ' .. status.untracked, fg = colors.red })
+	end
+
 
 	return result
 end
@@ -24,15 +29,14 @@ end
 local function right()
 	local result = {}
 	local seve = vim.diagnostic.severity
-	local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
-	local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
-	local info = #vim.diagnostic.get(0, { severity = seve.INFO })
-	local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
-
+	local error = #vim.diagnostic.get(nil, { severity = seve.ERROR })
+	local warning = #vim.diagnostic.get(nil, { severity = seve.WARN })
+	local info = #vim.diagnostic.get(nil, { severity = seve.INFO })
+	local hint = #vim.diagnostic.get(nil, { severity = seve.HINT })
 
 
 	if error ~= 0 then
-		table.insert(result, { text = "  " .. error, fg = colors.red })
+		table.insert(result, { text = " \u{ea87} " .. error, fg = colors.red })
 	end
 
 	if warning ~= 0 then
@@ -44,13 +48,11 @@ local function right()
 	end
 
 	if info ~= 0 then
-		table.insert(result, { text = "  " .. info, fg = colors.aqua })
+		table.insert(result, { text = " \u{f449} " .. info, fg = colors.aqua })
 	end
 
 	return GitStatus(result)
 end
-
-
 
 
 require('bufferline').setup {
