@@ -29,14 +29,29 @@ vim.treesitter.query.set("go", "injections", [[
 
 (call_expression
     (selector_expression
-        operand: (identifier) @operand (#any-of? @operand "db" "Xdb")
-        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get"))
+        operand: (identifier) @operand (#any-of? @operand "db" "Xdb" "DB" "Pgx")
+        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query"))
 
     (argument_list
     [ (raw_string_literal) (interpreted_string_literal) ] @injection.content (#offset! @injection.content 0 1 0 -1)
     (#set! injection.language "sql")
   )
 )
+
+
+(call_expression
+    (selector_expression
+        operand : (selector_expression
+            operand: (identifier) @operand (#any-of? @operand "rest" "engine")
+            field: (field_identifier) @field (#any-of? @field "db" "Xdb" "DB" "Pgx")
+        )
+        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query")
+    )
+
+    (argument_list
+    [ (raw_string_literal) (interpreted_string_literal) ] @injection.content (#offset! @injection.content 0 1 0 -1)
+    (#set! injection.language "sql")
+  )
+)
+
 ]])
---
--- (#set! injection.language "sql")

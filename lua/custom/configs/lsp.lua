@@ -45,8 +45,7 @@ end
 
 local servers = {
 	dockerls = {},
-	-- marksman = {},
-	zls = {},
+
 	rust_analyzer = {},
 	gopls = {
 		cmd = { 'gopls' },
@@ -61,12 +60,7 @@ local servers = {
 		}
 	},
 
-
-	tsserver = {},
 	jsonls = {},
-	-- svelte = {},
-	-- html = { filetypes = { 'html', 'twig', 'hbs' } },
-	-- cssls = {},
 
 	lua_ls = {
 		Lua = {

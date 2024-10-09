@@ -1,2 +1,2 @@
-require('custom.setting.options')
-require('custom.setting.keymaps')
+require 'custom.setting.options'
+require 'custom.setting.keymaps'

@@ -37,3 +37,4 @@ vim.keymap.set('n', '<leader>gd', builtin.git_status, { desc = 'Search [G]it [D]
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.lsp_document_symbols, { desc = '[S]earch [S]ymbols' })
 vim.keymap.set('n', '<leader>sw', builtin.lsp_dynamic_workspace_symbols, { desc = '[S]earch [W]orkspace' })
+vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = ' [S]earch using live [G]rep' })

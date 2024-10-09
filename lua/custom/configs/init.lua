@@ -1,9 +1,10 @@
-require('custom.configs.telescope')
-require('custom.configs.treesitter')
-require('custom.configs.lsp')
-require('custom.configs.nvim-cmp')
-require('custom.configs.alpha')
-require('custom.configs.bufferline')
-require('custom.configs.blankline')
-require('custom.configs.oil')
-require('custom.configs.statuscol')
+require 'custom.configs.telescope'
+require 'custom.configs.treesitter'
+require 'custom.configs.lsp'
+require 'custom.configs.nvim-cmp'
+require 'custom.configs.alpha'
+require 'custom.configs.bufferline'
+require 'custom.configs.blankline'
+require 'custom.configs.oil'
+require 'custom.configs.statuscol'
+require 'custom.configs.lualine'

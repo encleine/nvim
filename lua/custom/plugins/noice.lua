@@ -3,7 +3,7 @@ return {
 
   event = "VeryLazy",
   opts = {
-
+    messages = { view = "mini", view_warn = "mini" },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

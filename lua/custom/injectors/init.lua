@@ -1,1 +1,1 @@
-require('custom.injectors.go')
+require 'custom.injectors.go'

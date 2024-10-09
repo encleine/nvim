@@ -43,36 +43,25 @@ end, { silent = true, desc = '[D]uplicate line' })
 vim.keymap.set('x', 'p', 'P', { silent = true })
 
 
--- [[ wraping text with parenthesis ]]
-local function mmap(s, e)
-	vim.keymap.set('v', s,
-		-- using a the register r(eplace) so the default one doesn't get overwritten
-		string.format('"rc%s<C-r>"%s<esc>', s, e),
-		{ silent = true }
-	)
-end
-
-mmap('(', ')')
-mmap('[', ']')
-mmap('{', '}')
-mmap('"', '"')
-mmap("'", "'")
-mmap("`", "`")
+-- -- [[ wraping text with parenthesis ]]
+-- local function mmap(s, e)
+-- 	vim.keymap.set('v', s,
+-- 		-- using a the register r(eplace) so the default one doesn't get overwritten
+-- 		string.format('"rc%s<C-r>"%s<esc>', s, e),
+-- 		{ silent = true }
+-- 	)
+-- end
+--
+-- mmap('(', ')')
+-- mmap('[', ']')
+-- mmap('{', '}')
+-- mmap('"', '"')
+-- mmap("'", "'")
+-- mmap("`", "`")
 
 --[[ making and moving between tabs ]]
-
 
 vim.keymap.set('n', '<leader>l', ':BufferLineCycleNext <CR>', { silent = true })
 vim.keymap.set('n', '<leader>h', ':BufferLineCyclePrev <CR>', { silent = true })
 vim.keymap.set('n', '<leader>k', ':tabnew <cr>', { silent = true })
 vim.keymap.set('n', '<leader>j', '<C-w>T', { silent = true })
-
-
-
---[[ deleting parenthesis ]]
-vim.keymap.set('n', 'dp', function()
-	local r, c = unpack(vim.api.nvim_win_get_cursor(0))
-
-	local cmd = '%x' .. string.format("%dG%d|x", r, c + 1)
-	vim.cmd.normal { cmd, bang = true }
-end, { silent = true, desc = '[D]eleting [P]arenthesis' })

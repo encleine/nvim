@@ -1,4 +1,4 @@
-local colors = require('custom.theme.colors')
+local colors = require 'custom.theme.colors'
 
 local borderBg = colors.base2
 local selection = colors.base0

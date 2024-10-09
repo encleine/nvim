@@ -22,60 +22,61 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Custom plugins ]]
+--    [[ todoComments ]]
+--    [[ bufferline ]]
+--    [[ autoformat ]]
+--    [[ treesitter ]]
+--    [[ colorizer ]]
+--    [[ telescope ]]
+--    [[ gitsigns ]]
+--    [[ nvim-cmp ]]
+--    [[ lualine ]]
+--    [[ dadbod ]]
+--    [[ noice ]]
+--    [[ alpha ]]
+--    [[ theme ]]
+--    [[ init ]]
+--    [[ lsp ]]
+--    [[ oil ]]
 require('lazy').setup({
-    { import = 'custom.plugins' },
-  },
-  { change_detection = { notify = false } }
-)
-
+  import = 'custom.plugins',
+  change_detection = { notify = false },
+})
 
 -- [[ Setting options ]]
 --    [[  options ]]
 --    [[  Keymaps ]]
-require('custom.setting')
+require 'custom.setting'
 
--- [[ Highlight on yank ]]
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank { timeout = 200, higroup = "IncSearch" }
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
-
--- [[ Configs ]]
---   [[ Telescope ]]
---   [[ Treesitter ]]
---   [[ LSP ]]
---   [[ nvim-cmp ]]
---   [[ nvim-ufo ]]
-require('custom.configs')
+-- [[ Custom plugin Configs ]]
+--    [[ bufferline ]]
+--    [[ treesitter ]]
+--    [[ blankline ]]
+--    [[ statuscol ]]
+--    [[ telescope ]]
+--    [[ nvim-cmp ]]
+--    [[ lualine ]]
+--    [[ alpha ]]
+--    [[ lsp ]]
+--    [[ oil ]]
+require 'custom.configs'
 
 -- [[ Custome theming ]]
+--   [[ telescope ]]
 --   [[ lueline ]]
 --   [[ noice ]]
---   [[ telescope ]]
 --   [[ folds ]]
-require('custom.theme')
+require 'custom.theme'
 
 -- [[ Custome theming ]]
 --   [[ go -> sql ]]
-require('custom.injectors')
+require 'custom.injectors'
 
--- fix for lualine being bad
-local lualine_nvim_opts = require 'lualine.utils.nvim_opts'
-local base_set = lualine_nvim_opts.set
-lualine_nvim_opts.set = function(name, val, scope)
-  if vim.env.TMUX ~= nil and name == 'statusline' then
-    if scope and scope.window == vim.api.nvim_get_current_win() then
-      vim.g.tpipeline_statusline = val
-      vim.cmd 'silent! call tpipeline#update()'
-    end
-    return
-  end
-  return base_set(name, val, scope)
-end
+-- [[ Custome auto cmds ]]
+--   [[ sql comment string ]]
+--   [[ Highlight on yank ]]
+require 'custom.autocmd'
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
