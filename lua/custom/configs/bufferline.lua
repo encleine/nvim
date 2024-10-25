@@ -1,4 +1,4 @@
-local colors = require('custom.theme.colors')
+local colors = require('monokai').soda
 local git = require('custom.functions.git')
 
 local function GitStatus(result)

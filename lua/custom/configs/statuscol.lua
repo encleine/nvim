@@ -27,6 +27,29 @@ local function fold_info(args)
 	}
 end
 
+-- INFO: WIP
+-- local soda = require('monokai').soda
+-- local classic = require('monokai').classic
+-- local pro = require('monokai').pro
+-- local ristretto = require('monokai').ristretto
+--
+-- local colors = {
+-- 	["ristretto-red"] = { fg = ristretto.red, ctermfg = 35 },
+-- 	["ristretto-pink"] = { fg = ristretto.pink, ctemrfg = 35 },
+-- 	["classic-red"] = { fg = classic.red, ctemrfg = 35 },
+-- 	["classic-pink"] = { fg = classic.pink, ctemrfg = 35 },
+-- 	["soda-red"] = { fg = soda.red, ctemrfg = 35 },
+-- 	["pro-red"] = { fg = pro.red, ctemrfg = 35 },
+-- 	["pro-pink "] = { fg = pro.pink, ctemrfg = 35 },
+-- }
+--
+-- local highlights = {}
+-- for key, color in pairs(colors) do
+-- 	local name = "FOLD" .. key
+-- 	vim.api.nvim_set_hl(0, name, color)
+-- 	highlights[key] = name
+-- end
+
 
 local function foldfunc(args)
 	local width = args.fold.width

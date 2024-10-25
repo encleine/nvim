@@ -43,21 +43,21 @@ end, { silent = true, desc = '[D]uplicate line' })
 vim.keymap.set('x', 'p', 'P', { silent = true })
 
 
--- -- [[ wraping text with parenthesis ]]
--- local function mmap(s, e)
--- 	vim.keymap.set('v', s,
--- 		-- using a the register r(eplace) so the default one doesn't get overwritten
--- 		string.format('"rc%s<C-r>"%s<esc>', s, e),
--- 		{ silent = true }
--- 	)
--- end
---
--- mmap('(', ')')
--- mmap('[', ']')
--- mmap('{', '}')
--- mmap('"', '"')
--- mmap("'", "'")
--- mmap("`", "`")
+-- [[ wraping text with parenthesis ]]
+local function mmap(prefix, s, e)
+	vim.keymap.set('v', prefix .. s,
+		-- using a the register r(eplace) so the default one doesn't get overwritten
+		string.format('"rc%s<C-r>"%s<esc>', s, e),
+		{ silent = true }
+	)
+end
+
+mmap('<leader>r', '(', ')')
+mmap('<leader>r', '[', ']')
+mmap('<leader>r', '{', '}')
+mmap('<leader>r', '"', '"')
+mmap('<leader>r', "'", "'")
+mmap('<leader>r', "`", "`")
 
 --[[ making and moving between tabs ]]
 

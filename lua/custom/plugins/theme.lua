@@ -1,8 +1,13 @@
 return {
   'tanvirtin/monokai.nvim',
   config = function()
-    require('monokai').setup { palette = require('monokai').soda, italics = false }
-    require('monokai').setup { palette = { base2 = '#191919' } }
+    local palette = require('monokai').soda
+    palette.base2 = '#191919'
+
+    require('monokai').soda = palette
+    require('monokai').setup { palette = palette, italics = false }
+
+    vim.cmd.colorscheme 'monokai_soda'
   end,
 
   -- "nyoom-engineering/oxocarbon.nvim",
