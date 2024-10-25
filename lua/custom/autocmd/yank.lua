@@ -1,9 +1,9 @@
 -- [[ Highlight on yank ]]
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+local group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
 	callback = function()
-		vim.highlight.on_yank { timeout = 200, higroup = "IncSearch" }
+		vim.highlight.on_yank { timeout = 200, higroup = "lualine_a_visual" }
 	end,
-	group = highlight_group,
+	group = group,
 	pattern = '*',
 })

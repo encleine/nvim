@@ -1,10 +1,10 @@
 -- [[ added comment string for sql files ]]
 local group = vim.api.nvim_create_augroup('sqlComment', { clear = true })
 
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd('BufEnter', {
 	callback = function()
-		vim.bo.commentstring = '-- %s'
+		vim.opt["tabstop"] = 4
 	end,
 	group = group,
-	pattern = 'sql',
+	pattern = '*.go',
 })
