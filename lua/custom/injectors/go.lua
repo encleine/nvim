@@ -54,4 +54,13 @@ vim.treesitter.query.set("go", "injections", [[
   )
 )
 
+(short_var_declaration
+    left: (expression_list
+      (identifier) @operand (#any-of? @operand "query"))
+    right: (expression_list
+      [ (raw_string_literal) (interpreted_string_literal) ] @injection.content (#offset! @injection.content 0 1 0 -1)
+    (#set! injection.language "sql")
+    )
+)
+
 ]])
