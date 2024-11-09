@@ -1,5 +1,5 @@
 -- [[ added comment string for sql files ]]
-local group = vim.api.nvim_create_augroup('sqlComment', { clear = true })
+local group = vim.api.nvim_create_augroup('goTabs', { clear = true })
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	callback = function()
