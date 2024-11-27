@@ -43,7 +43,7 @@ vim.treesitter.query.set("go", "injections", [[
     (selector_expression
         operand : (selector_expression
             operand: (identifier) @operand (#any-of? @operand "rest" "engine")
-            field: (field_identifier) @field (#any-of? @field "db" "Xdb" "DB" "Pgx")
+            field: (field_identifier) @field (#any-of? @field "db" "Xdb" "DB" "Pgx" "Xdb_READ")
         )
         field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query")
     )
