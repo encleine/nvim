@@ -25,7 +25,7 @@
 -- end
 
 
-vim.treesitter.query.set("go", "injections", [[
+vim.treesitter.query.set("go", "goSqlInjections", [[
 
 (call_expression
     (selector_expression
