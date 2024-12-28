@@ -20,7 +20,7 @@ require("snacks").setup {
 			{
 				pane = 2,
 				section = 'terminal',
-				cmd = 'echo "' .. require 'custom.theme.art'[5] .. '" | lolcat',
+				cmd = 'echo "' .. require 'custom.theme.art'[3] .. '" | lolcat',
 				height = 9,
 				padding = 1,
 				align = 'center',
