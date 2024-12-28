@@ -23,10 +23,13 @@ require('telescope').setup {
 		lsp_document_symbols = DropDownThem,
 		lsp_dynamic_workspace_symbols = DropDownThem,
 	},
+	extensions = {
+		fzf = {},
+	},
 }
 
 -- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+require('telescope').load_extension('fzf')
 
 local builtin = require('telescope.builtin')
 -- See `:help telescope.builtin`
