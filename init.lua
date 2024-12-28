@@ -68,9 +68,6 @@ require 'custom.configs'
 --   [[ folds ]]
 require 'custom.theme'
 
--- [[ Custome theming ]]
---   [[ go -> sql ]]
-require 'custom.injectors'
 
 -- [[ Custome auto cmds ]]
 --   [[ sql comment string ]]
