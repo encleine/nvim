@@ -58,7 +58,7 @@ end
 require('bufferline').setup {
 	options = {
 		mode = "tabs",
-		buffer_close_icon = '',
+		-- buffer_close_icon = '',
 		themable = true,
 
 		-- tabline_position = "bottom", -- This is a custom option, change the position here
@@ -67,9 +67,10 @@ require('bufferline').setup {
 		diagnostics = "nvim_lsp",
 
 		show_buffer_close_icons = false,
+		show_close_icon = false,
 		show_duplicate_prefix = false,
-
-		custom_areas = { right = right }
+		custom_areas = { right = right },
+		separator_style = { '', '' }
 	},
 
 	highlights = {
@@ -79,6 +80,13 @@ require('bufferline').setup {
 				attribute = "bg",
 				highlight = "Whitespace"
 			}
-		}
+		},
+		background = {
+			---@diagnostic disable-next-line: assign-type-mismatch
+			bg = {
+				attribute = "bg",
+				highlight = "Whitespace"
+			}
+		},
 	}
 }

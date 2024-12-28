@@ -25,6 +25,10 @@ local hlgroups = {
 	NoicePopupmenuSelected = { bg = colors.pink },
 	NoiceScrollbar         = { bg = colors.base2 },
 	NoiceScrollbarThumb    = { bg = colors.base2 },
+
+	FoldColumn             = { bg = colors.base2 },
+	SnacksDashboardTitle   = { bg = colors.base2, fg = colors.pink },
+	SnacksDashboardFooter  = { bg = colors.base2, fg = colors.pink },
 }
 
 
