@@ -18,6 +18,7 @@ require('telescope').setup {
 		find_files = NoPreview,
 		current_buffer_fuzzy_find = DropDownThem,
 		git_branches = NoPreview,
+		live_grep = DropDownThem,
 		buffers = DropDownThem,
 		git_status = DropDownThem,
 		lsp_document_symbols = DropDownThem,
