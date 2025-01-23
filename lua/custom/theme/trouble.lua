@@ -1,19 +1,19 @@
-local colors = require('monokai').soda
+local palette = require('custom.theme.base')
 
 local hlgroups = {
 	-- TroubleDirectory = { fg = colors.aqua },
-	TroubleIndent                = { fg = colors.purple },
-	TroubleIndentFoldClosed      = { fg = colors.purple },
-	TroubleIndentFoldOpen        = { fg = colors.purple },
-	TroubleIndentLast            = { fg = colors.purple },
-	TroubleIndentMiddle          = { fg = colors.purple },
-	TroubleIndentTop             = { fg = colors.purple },
-	TroubleIndentWs              = { fg = colors.purple },
-	TroubleDiagnosticsItemSource = { fg = colors.purple },
-	TroubleNormalNC              = { bg = colors.base2 },
-	TroubleNormal                = { bg = colors.base2 },
-	TroublePos                   = { fg = colors.pink },
-	TroubleCount                 = { fg = colors.pink },
+	TroubleIndent                = { fg = palette.purple },
+	TroubleIndentFoldClosed      = { fg = palette.purple },
+	TroubleIndentFoldOpen        = { fg = palette.purple },
+	TroubleIndentLast            = { fg = palette.purple },
+	TroubleIndentMiddle          = { fg = palette.purple },
+	TroubleIndentTop             = { fg = palette.purple },
+	TroubleIndentWs              = { fg = palette.purple },
+	TroubleDiagnosticsItemSource = { fg = palette.purple },
+	TroubleNormalNC              = { bg = palette.base2 },
+	TroubleNormal                = { bg = palette.base2 },
+	TroublePos                   = { fg = palette.pink },
+	TroubleCount                 = { fg = palette.pink },
 }
 
 

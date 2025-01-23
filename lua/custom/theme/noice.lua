@@ -1,34 +1,34 @@
-local colors = require('monokai').soda
+local palette = require('custom.theme.base')
 
 local hlgroups = {
 
-	NoiceCmdlinePopupTitleCmdline = { fg = colors.pink },
-	NoiceCmdlineIconCmdline       = { fg = colors.pink },
+	NoiceCmdlinePopupTitleCmdline = { fg = palette.pink },
+	NoiceCmdlineIconCmdline       = { fg = palette.pink },
 
-	NoiceCmdlinePopupTitleFilter  = { fg = colors.purple },
-	NoiceCmdlineIconFilter        = { fg = colors.purple },
+	NoiceCmdlinePopupTitleFilter  = { fg = palette.purple },
+	NoiceCmdlineIconFilter        = { fg = palette.purple },
 
-	NoiceCmdlinePopupTitleHelp    = { fg = colors.pink },
-	NoiceCmdlineIconHelp          = { fg = colors.pink },
+	NoiceCmdlinePopupTitleHelp    = { fg = palette.pink },
+	NoiceCmdlineIconHelp          = { fg = palette.pink },
 
-	NoiceCmdlinePopupTitleLua     = { fg = colors.aqua },
-	NoiceCmdlineIconLua           = { fg = colors.aqua },
+	NoiceCmdlinePopupTitleLua     = { fg = palette.aqua },
+	NoiceCmdlineIconLua           = { fg = palette.aqua },
 
-	NoiceCmdlinePopupBorderSearch = { fg = colors.white },
-	NoiceCmdlinePopupTitleSearch  = { fg = colors.orange },
-	NoiceCmdlineIconSearch        = { fg = colors.orange },
+	NoiceCmdlinePopupBorderSearch = { fg = palette.white },
+	NoiceCmdlinePopupTitleSearch  = { fg = palette.orange },
+	NoiceCmdlineIconSearch        = { fg = palette.orange },
 
-	NoiceCmdlineIconInput         = { fg = colors.pink },
-	NoiceCmdlineIconCalculator    = { fg = colors.pink },
+	NoiceCmdlineIconInput         = { fg = palette.pink },
+	NoiceCmdlineIconCalculator    = { fg = palette.pink },
 
 
-	NoicePopupmenuSelected = { bg = colors.pink },
-	NoiceScrollbar         = { bg = colors.base2 },
-	NoiceScrollbarThumb    = { bg = colors.base2 },
+	NoicePopupmenuSelected = { bg = palette.pink },
+	NoiceScrollbar         = { bg = palette.base2 },
+	NoiceScrollbarThumb    = { bg = palette.base2 },
 
-	FoldColumn             = { bg = colors.base2 },
-	SnacksDashboardTitle   = { bg = colors.base2, fg = colors.pink },
-	SnacksDashboardFooter  = { bg = colors.base2, fg = colors.pink },
+	FoldColumn             = { bg = palette.base2 },
+	SnacksDashboardTitle   = { bg = palette.base2, fg = palette.pink },
+	SnacksDashboardFooter  = { bg = palette.base2, fg = palette.pink },
 }
 
 

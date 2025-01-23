@@ -1,37 +1,37 @@
-local colors = require('monokai').soda
+local palette = require('custom.theme.base')
 
 local theme = {
 
 	theme = {
 		inactive = {
-			a = { fg = colors.base2, bg = colors.pink, gui = "bold" },
-			b = { fg = colors.pink, bg = colors.base0 },
-			c = { fg = colors.pink, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.pink, gui = "bold" },
+			b = { fg = palette.pink, bg = palette.base0 },
+			c = { fg = palette.pink, bg = palette.base2 },
 		},
 		visual = {
-			a = { fg = colors.base2, bg = colors.purple, gui = "bold" },
-			b = { fg = colors.purple, bg = colors.base0 },
-			c = { fg = colors.purple, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.purple, gui = "bold" },
+			b = { fg = palette.purple, bg = palette.base0 },
+			c = { fg = palette.purple, bg = palette.base2 },
 		},
 		replace = {
-			a = { fg = colors.base2, bg = colors.purple, gui = "bold" },
-			b = { fg = colors.purple, bg = colors.base0 },
-			c = { fg = colors.purple, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.purple, gui = "bold" },
+			b = { fg = palette.purple, bg = palette.base0 },
+			c = { fg = palette.purple, bg = palette.base2 },
 		},
 		normal = {
-			a = { fg = colors.base2, bg = colors.pink, gui = "bold" },
-			b = { fg = colors.pink, bg = colors.base0 },
-			c = { fg = colors.pink, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.pink, gui = "bold" },
+			b = { fg = palette.pink, bg = palette.base0 },
+			c = { fg = palette.pink, bg = palette.base2 },
 		},
 		insert = {
-			a = { fg = colors.base2, bg = colors.green, gui = "bold" },
-			b = { fg = colors.green, bg = colors.base0 },
-			c = { fg = colors.green, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.green, gui = "bold" },
+			b = { fg = palette.green, bg = palette.base0 },
+			c = { fg = palette.green, bg = palette.base2 },
 		},
 		command = {
-			a = { fg = colors.base2, bg = colors.red, gui = "bold" },
-			b = { fg = colors.red, bg = colors.base0 },
-			c = { fg = colors.red, bg = colors.base2 },
+			a = { fg = palette.base2, bg = palette.red, gui = "bold" },
+			b = { fg = palette.red, bg = palette.base0 },
+			c = { fg = palette.red, bg = palette.base2 },
 		},
 	},
 

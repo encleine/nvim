@@ -1,7 +1,7 @@
-local colors = require('monokai').soda
+local palette = require('custom.theme.base')
 
 local hlgroups = {
-	LazyBackdrop = { bg = colors.base2 },
+	LazyBackdrop = { bg = palette.base2 },
 }
 
 for hl, col in pairs(hlgroups) do
