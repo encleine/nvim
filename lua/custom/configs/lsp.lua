@@ -52,6 +52,7 @@ local servers = {
 		settings = {
 			gopls = {
 				completeUnimported = true,
+				staticcheck = true,
 				analyses = {
 					unusedparams = true,
 					fieldalignment = true
