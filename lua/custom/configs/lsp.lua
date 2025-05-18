@@ -34,6 +34,9 @@ local on_attach = function(_, bufnr)
 	imap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 end
 
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -70,6 +73,8 @@ local servers = {
 			diagnostics = { disable = { 'missing-fields' } }
 		},
 	},
+
+	pyright = { capabilities = capabilities }
 }
 
 -- Setup neovim lua configuration
@@ -84,15 +89,14 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
 	ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-	function(server_name)
-		require('lspconfig')[server_name].setup {
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = servers[server_name],
-			filetypes = (servers[server_name] or {}).filetypes,
-		}
-	end
+	handlers = {
+		function(server_name)
+			require('lspconfig')[server_name].setup {
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = servers[server_name],
+				filetypes = (servers[server_name] or {}).filetypes,
+			}
+		end
+	}
 }

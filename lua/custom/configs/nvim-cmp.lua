@@ -44,14 +44,23 @@ cmp.setup {
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
+		{ name = 'path' },
 	},
 }
 
-cmp.setup.filetype({ "sql" }, {
-	sources = {
-		{ name = 'vim-dadbod-completion' },
-		{ name = 'buffer' },
-	}
+local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "sql", "mysql", "plsql" },
+	callback = function()
+		cmp.setup.buffer({
+			sources = {
+				{ name = "nvim_lsp" },
+				{ name = 'vim-dadbod-completion' },
+				{ name = 'buffer' },
+			}
+		})
+	end,
+	group = autocomplete_group,
 })
 
 
