@@ -1,5 +1,5 @@
 return {
-  'tanvirtin/monokai.nvim',
+  'encleine/monokai.nvim',
   config = function()
     local palette = require('custom.theme.base')
 

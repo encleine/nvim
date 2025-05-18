@@ -27,36 +27,12 @@ local function fold_info(args)
 	}
 end
 
--- INFO: WIP
--- local soda = require('monokai').soda
--- local classic = require('monokai').classic
--- local pro = require('monokai').pro
--- local ristretto = require('monokai').ristretto
---
--- local colors = {
--- 	["ristretto-red"] = { fg = ristretto.red, ctermfg = 35 },
--- 	["ristretto-pink"] = { fg = ristretto.pink, ctemrfg = 35 },
--- 	["classic-red"] = { fg = classic.red, ctemrfg = 35 },
--- 	["classic-pink"] = { fg = classic.pink, ctemrfg = 35 },
--- 	["soda-red"] = { fg = soda.red, ctemrfg = 35 },
--- 	["pro-red"] = { fg = pro.red, ctemrfg = 35 },
--- 	["pro-pink "] = { fg = pro.pink, ctemrfg = 35 },
--- }
---
--- local highlights = {}
--- for key, color in pairs(colors) do
--- 	local name = "FOLD" .. key
--- 	vim.api.nvim_set_hl(0, name, color)
--- 	highlights[key] = name
--- end
-
-
 local function foldfunc(args)
 	local width = args.fold.width
 	if width == 0 then return "" end
 
 	local fold = fold_info(args)
-	local sep = "%#ErrorMsg#"
+	local sep = ""
 	local level = fold.level
 	local closed = fold.closed
 	local range = level < width and level or width
@@ -67,7 +43,6 @@ local function foldfunc(args)
 	end
 
 	if closed and level == 1 then
-		-- sep = sep .. "🮯"
 		sep = sep .. "🯀"
 	elseif closed then
 		sep = sep .. "┇"
@@ -111,7 +86,10 @@ require("statuscol").setup(
 	{
 		relculright = true,
 		segments = {
-			{ text = { foldfunc }, },
+			{
+				hl = "FoldColumn",
+				text = { foldfunc },
+			},
 			{
 				text = { lnumfunc },
 			},
