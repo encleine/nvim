@@ -1,7 +1,6 @@
 require 'custom.configs.telescope'
 require 'custom.configs.treesitter'
 require 'custom.configs.lsp'
-require 'custom.configs.nvim-cmp'
 require 'custom.configs.bufferline'
 require 'custom.configs.blankline'
 require 'custom.configs.oil'
