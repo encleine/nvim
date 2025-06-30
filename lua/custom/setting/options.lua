@@ -65,6 +65,8 @@ vim.g.ftplugin_sql_omni_key_left  = '<C-0>'
 vim.g._ts_force_sync_parsing      = true
 
 vim.diagnostic.config({
+	virtual_text = { current_line = false },
+	underline = false,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = '┃',
