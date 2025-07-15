@@ -1,4 +1,4 @@
-local colors = require('monokai').soda
+local colors = require('custom.theme.base').palette
 local git = require('custom.functions.git')
 
 local function GitStatus(result)
@@ -10,7 +10,7 @@ local function GitStatus(result)
 	end
 
 	if status.changed ~= 0 then
-		table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = colors.aqua })
+		table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = colors.aqua or colors.blue })
 	end
 
 	if status.removed ~= 0 then
@@ -48,7 +48,7 @@ local function right()
 	end
 
 	if info ~= 0 then
-		table.insert(result, { text = " \u{f449} " .. info, fg = colors.aqua })
+		table.insert(result, { text = " \u{f449} " .. info, fg = colors.aqua or colors.blue })
 	end
 
 	return GitStatus(result)

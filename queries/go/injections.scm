@@ -2,7 +2,7 @@
 (call_expression
     (selector_expression
         operand: (identifier) @operand (#any-of? @operand "db" "Xdb" "DB" "Pgx" "queryBuilder" "transaction" "pgxscan")
-        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query" "WriteString" ))
+        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query" "WriteString" "GetContext" "SelectContext"))
 
     (argument_list
       [ (raw_string_literal (raw_string_literal_content) @injection.content) (interpreted_string_literal (interpreted_string_literal_content) @injection.content)  ] 
@@ -17,7 +17,7 @@
             operand: (identifier) @operand (#any-of? @operand "rest" "engine" "food" "db" "pgxscan")
             ;field: (field_identifier) @field (#any-of? @field "db" "Xdb" "DB" "Pgx" "Xdb_READ")
         )
-        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query" "Queryx")
+        field: (field_identifier) @field (#any-of? @field "Exec" "NamedExec" "QueryRow" "Select" "Get" "Query" "Queryx" "GetContext" "SelectContext")
     )
 
     (argument_list
