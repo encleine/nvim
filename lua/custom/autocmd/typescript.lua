@@ -3,8 +3,10 @@ local group = vim.api.nvim_create_augroup('tsTabs', { clear = true })
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	callback = function()
-		vim.opt["tabstop"] = 4
+		vim.opt["expandtab"] = true
+		vim.opt["tabstop"] = 2
+		vim.opt["shiftwidth"] = 2
 	end,
 	group = group,
-	pattern = '*.ts',
+	pattern = { '*.ts', "*.tsx", '*.jsx', "*.js" },
 })
