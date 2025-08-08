@@ -20,10 +20,6 @@ require('lualine').setup {
 		lualine_c = { 'selectioncount' },
 		lualine_x = {
 			{
-				require("noice").api.status.mode.get,
-				cond = require("noice").api.status.mode.has,
-			},
-			{
 				require("noice").api.status.command.get,
 				cond = require("noice").api.status.command.has,
 			},
@@ -32,12 +28,13 @@ require('lualine').setup {
 		lualine_z = { '' },
 	},
 
-	-- extensions = {
-	-- 	'oil',
-	-- 	'fugitive',
-	-- 	'mason',
-	-- 	'lazy',
-	-- },
+	extensions = {
+		'oil',
+		'fugitive',
+		'mason',
+		'lazy',
+		'trouble',
+	},
 
 	options = require('custom.theme.lualine'),
 }

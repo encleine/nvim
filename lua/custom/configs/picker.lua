@@ -28,14 +28,12 @@ return {
 							return
 						end
 
-						-- Other requires inside the nested function
-						local lualine = require('lualine')
-
 						monokai.setup {}
 						catppuccin.setup {}
 
 						settings.settings.palette = selection.display
 						settings.write_json_file(settings.settings_path, settings.settings)
+
 
 						vim.fn.system(string.format(
 							"cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/curent-theme.conf",
@@ -56,7 +54,9 @@ return {
 							vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = palette.pink })
 						end)
 
-						lualine.setup {}
+
+						vim.cmd 'silent! call tpipeline#state#reload()'
+						require 'custom.configs.lualine'
 					end)
 					return true
 				end,

@@ -9,7 +9,7 @@ return {
 
 
 
-	{ 'vimpostor/vim-tpipeline', event = 'VeryLazy' },
+	{ 'vimpostor/vim-tpipeline' },
 
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
