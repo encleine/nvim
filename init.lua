@@ -48,19 +48,6 @@ require('lazy').setup({
 --    [[  Keymaps ]]
 require 'custom.setting'
 
--- [[ Custom plugin Configs ]]
---    [[ bufferline ]]
---    [[ treesitter ]]
---    [[ blankline ]]
---    [[ statuscol ]]
---    [[ telescope ]]
---    [[ nvim-cmp ]]
---    [[ lualine ]]
---    [[ alpha ]]
---    [[ lsp ]]
---    [[ oil ]]
-require 'custom.configs'
-
 -- [[ Custome theming ]]
 --   [[ telescope ]]
 --   [[ lueline ]]

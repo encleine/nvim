@@ -3,6 +3,7 @@ return {
 	dependencies = { 'rafamadriz/friendly-snippets' },
 
 	version = '1.*',
+	event = 'BufReadPre',
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -22,7 +23,6 @@ return {
 			nerd_font_variant = 'mono'
 		},
 
-		completion = { documentation = { auto_show = true } },
 
 		sources = {
 			default = { 'lsp', 'path', 'snippets', 'buffer' },
@@ -39,6 +39,9 @@ return {
 		fuzzy = { implementation = "prefer_rust_with_warning" },
 
 		completion = {
+
+			documentation = { auto_show = true },
+
 			menu = {
 				draw = {
 					components = {

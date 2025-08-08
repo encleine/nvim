@@ -5,9 +5,8 @@ return {
 
 	'folke/which-key.nvim',
 
-	'lukas-reineke/indent-blankline.nvim',
 
-	"luukvbaal/statuscol.nvim",
+
 
 
 	{ 'vimpostor/vim-tpipeline', event = 'VeryLazy' },

@@ -31,13 +31,3 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 require('telescope').load_extension('fzf')
-
-local builtin = require('telescope.builtin')
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Search [G]it [B]branches' })
-vim.keymap.set('n', '<leader>gd', builtin.git_status, { desc = 'Search [G]it [D]if Files' })
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = ' [S]earch using live [G]rep' })
-vim.keymap.set('n', '<leader>st', require('custom.configs.picker'), { desc = ' [S]earch [T]hemes' })

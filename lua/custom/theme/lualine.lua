@@ -1,6 +1,6 @@
 local palette = require('custom.theme.base').palette
 
-local theme = {
+return {
 	theme = {
 		inactive = {
 			a = { fg = palette.base2 or palette.base, bg = palette.pink, gui = "bold" },
@@ -40,9 +40,4 @@ local theme = {
 	--
 	component_separators = { left = '🮲🮳', right = '' },
 	section_separators = { left = '🭠', right = '' },
-
-}
-
-require('lualine').setup {
-	options = theme,
 }

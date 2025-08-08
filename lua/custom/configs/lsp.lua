@@ -14,11 +14,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map("n", '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 		map("n", '<leader>ra', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-		map("n", '<leader>ss', require('telescope.builtin').lsp_document_symbols, '[S]earch [S]ymbols')
-		map("n", '<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]earch [W]orkspace')
-
 		map("n", 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-		map("n", 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
 
 		local function client_supports_method(client, method, bufnr)

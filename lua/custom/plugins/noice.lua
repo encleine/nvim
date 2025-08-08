@@ -1,75 +1,76 @@
 return {
-  "folke/noice.nvim",
+	"folke/noice.nvim",
 
-  event = "VeryLazy",
-  opts = {
-    messages = { view = "mini", view_warn = "mini" },
-    lsp = {
-      override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-      },
-      signature = {
-        enabled = false,
-      }
-    },
+	event = 'VeryLazy',
+	lazy = true,
+	opts = {
+		messages = { view = "mini", view_warn = "mini" },
+		lsp = {
+			override = {
+				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+				["vim.lsp.util.stylize_markdown"] = true,
+			},
+			signature = {
+				enabled = false,
+			}
+		},
 
-    presets = {
-      long_message_to_split = true, -- long messages will be sent to a split
-      lsp_doc_border = true,
-    },
+		presets = {
+			long_message_to_split = true, -- long messages will be sent to a split
+			lsp_doc_border = true,
+		},
 
-    cmdline = {
-      format = {
-        cmdline = { pattern = "^:", icon = "🮲🮳", lang = "vim" },
-      },
-    },
+		cmdline = {
+			format = {
+				cmdline = { pattern = "^:", icon = "🮲🮳", lang = "vim" },
+			},
+		},
 
-    views = {
+		views = {
 
-      cmdline_popup = {
+			cmdline_popup = {
 
-        position = {
-          row = 5,
-          col = "50%",
-        },
+				position = {
+					row = 5,
+					col = "50%",
+				},
 
-        size = {
-          width = 60,
-          height = "auto",
-        },
-      },
+				size = {
+					width = 60,
+					height = "auto",
+				},
+			},
 
-      popupmenu = {
+			popupmenu = {
 
-        relative = "editor",
-        position = {
-          row = 8,
-          col = "50%",
-        },
+				relative = "editor",
+				position = {
+					row = 8,
+					col = "50%",
+				},
 
-        size = {
-          width = 60,
-          height = 10,
-        },
+				size = {
+					width = 60,
+					height = 10,
+				},
 
-        border = {
-          style = "rounded",
-          padding = { 0, 1 },
-        },
+				border = {
+					style = "rounded",
+					padding = { 0, 1 },
+				},
 
-        win_options = {
-          winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-        },
-      },
-    },
-
-
-  },
+				win_options = {
+					winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+				},
+			},
+		},
 
 
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-  }
+	},
+
+
+	dependencies = {
+		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+		"MunifTanjim/nui.nvim",
+	}
 }
