@@ -112,7 +112,9 @@ local servers = {
 		},
 	},
 
-	pyright = {}
+	pyright = {},
+	biome = {},
+	ts_ls = {},
 }
 
 
