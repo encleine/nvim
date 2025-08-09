@@ -6,10 +6,7 @@ return {
 	'folke/which-key.nvim',
 
 
-
-
-
-	{ 'vimpostor/vim-tpipeline' },
+	{ 'vimpostor/vim-tpipeline', event = 'VeryLazy' },
 
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins

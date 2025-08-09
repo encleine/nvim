@@ -61,22 +61,5 @@ require 'custom.theme'
 --   [[ Highlight on yank ]]
 require 'custom.autocmd'
 
-
-local monokai = require('monokai').setup
-local catppuccin = require("catppuccin").setup
-
-monokai {}
-catppuccin {}
-
-local palette = require 'custom.theme.base'.palette
-if string.find(palette.name, "monokai") then
-  monokai { palette = palette, italics = false }
-  vim.cmd.colorscheme(palette.name)
-else
-  catppuccin { flavour = palette.name }
-  vim.cmd.colorscheme("catppuccin")
-end
-
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

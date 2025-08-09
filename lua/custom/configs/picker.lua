@@ -24,16 +24,12 @@ return {
 
 						local selection = action_state.get_selected_entry()
 						if not selection then return end
-						if selection.display == settings.settings.palette then
+						if selection.display == settings.settings.palette.name then
 							return
 						end
 
 						monokai.setup {}
 						catppuccin.setup {}
-
-						settings.settings.palette = selection.display
-						settings.write_json_file(settings.settings_path, settings.settings)
-
 
 						vim.fn.system(string.format(
 							"cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/curent-theme.conf",
@@ -41,13 +37,16 @@ return {
 						))
 
 						local palette = palettes[selection.display]
-						if string.find(palette.name, "monokai") then
+						if palette.theme == "monokai" then
 							monokai.setup { palette = palette, italics = false }
 							vim.cmd.colorscheme(palette.name)
 						else
 							catppuccin.setup { flavour = selection.display }
 							vim.cmd.colorscheme("catppuccin")
 						end
+
+						settings.settings.palette = palette
+						settings.write_json_file(settings.settings_path, settings.settings)
 
 						local hooks = require "ibl.hooks"
 						hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -56,7 +55,7 @@ return {
 
 
 						vim.cmd 'silent! call tpipeline#state#reload()'
-						require 'custom.configs.lualine'
+						require 'custom.configs.lualine'.setup(palette)
 					end)
 					return true
 				end,
@@ -68,6 +67,7 @@ return {
 							value = entry,
 							display = entry[1],
 							ordinal = entry[2],
+							type = 'theme',
 						}
 					end
 				},

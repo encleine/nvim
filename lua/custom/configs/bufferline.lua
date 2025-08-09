@@ -1,4 +1,4 @@
-local colors = require('custom.theme.base').palette
+local palette = require('custom.setting.json').settings.palette
 local git = require('custom.functions.git')
 
 local function GitStatus(result)
@@ -6,19 +6,19 @@ local function GitStatus(result)
 	if not status then return result end
 
 	if status.added ~= 0 then
-		table.insert(result, { text = " \u{f0ef0} " .. status.added, fg = colors.green })
+		table.insert(result, { text = " \u{f0ef0} " .. status.added, fg = palette.green })
 	end
 
 	if status.changed ~= 0 then
-		table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = colors.aqua or colors.blue })
+		table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = palette.aqua or palette.blue })
 	end
 
 	if status.removed ~= 0 then
-		table.insert(result, { text = ' \u{f0234} ' .. status.removed, fg = colors.red })
+		table.insert(result, { text = ' \u{f0234} ' .. status.removed, fg = palette.red })
 	end
 
 	if status.untracked ~= 0 then
-		table.insert(result, { text = ' \u{f4e8} ' .. status.untracked, fg = colors.red })
+		table.insert(result, { text = ' \u{f4e8} ' .. status.untracked, fg = palette.red })
 	end
 
 
@@ -36,19 +36,19 @@ local function right()
 
 
 	if error ~= 0 then
-		table.insert(result, { text = " \u{ea87} " .. error, fg = colors.red })
+		table.insert(result, { text = " \u{ea87} " .. error, fg = palette.red })
 	end
 
 	if warning ~= 0 then
-		table.insert(result, { text = "  " .. warning, fg = colors.orange })
+		table.insert(result, { text = "  " .. warning, fg = palette.orange })
 	end
 
 	if hint ~= 0 then
-		table.insert(result, { text = "  " .. hint, fg = colors.green })
+		table.insert(result, { text = "  " .. hint, fg = palette.green })
 	end
 
 	if info ~= 0 then
-		table.insert(result, { text = " \u{f449} " .. info, fg = colors.aqua or colors.blue })
+		table.insert(result, { text = " \u{f449} " .. info, fg = palette.aqua or palette.blue })
 	end
 
 	return GitStatus(result)

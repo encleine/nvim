@@ -2,5 +2,8 @@ return {
 	-- Set lualine as statusline
 	'nvim-lualine/lualine.nvim',
 
-	config = function() require 'custom.configs.lualine' end
+	-- event = "lazy",
+	config = function()
+		require 'custom.configs.lualine'.setup()
+	end
 }
