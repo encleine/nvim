@@ -63,8 +63,9 @@ vim.g.ftplugin_sql_omni_key_right = '<C-0>'
 vim.g.ftplugin_sql_omni_key_left  = '<C-0>'
 
 -- vim.g._ts_force_sync_parsing      = true
-
 -- vim.opt.clipboard                 = "unnamedplus"
+
+vim.lsp.set_log_level("off")
 
 vim.diagnostic.config({
 	virtual_text = { current_line = false },
