@@ -8,6 +8,7 @@ return {
 
 		-- { 'j-hui/fidget.nvim',    opts = {} },
 		"stevearc/conform.nvim",
+		"zapling/mason-conform.nvim",
 		"saghen/blink.cmp",
 	},
 	-- event = 'BufReadPre',
