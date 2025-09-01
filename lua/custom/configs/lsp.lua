@@ -130,11 +130,14 @@ local formatters_by_ft = {
 	lua = { "stylua" },
 	javascript = { "ts_ls" },
 	typescript = { "ts_ls" },
-	go = { "gofmt" }, -- gofmt is a common formatter for Go
+	go = {
+		"gofmt",
+		-- "injected",
+	}, -- gofmt is a common formatter for Go
 	json = { "prettierd" },
 	css = { "cssls" },
 	markdown = { "prettierd" },
-	sql = { "sleek" },
+	sql = { "sqlfmt" },
 }
 
 require("conform").setup({
@@ -145,6 +148,20 @@ require("conform").setup({
 	},
 })
 
+-- Customize the "injected" formatter
+-- require("conform").formatters.injected = {
+-- 	-- Set the options field
+-- 	options = {
+-- 		-- ignore_errors = true,
+-- 		lang_to_ext = {
+-- 			sql = "sql",
+-- 		},
+-- 		lang_to_formatters = {
+-- 			sql = { "sqlfmt" },
+-- 		},
+-- 	},
+-- }
+--
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
 })
