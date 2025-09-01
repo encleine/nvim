@@ -12,7 +12,7 @@ function _G.FoldText()
 	return tabs_to_spaces(start) .. " - " .. tostring(lines) .. " - " .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
 end
 
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldtext = 'v:lua.FoldText()'
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.FoldText()"
 vim.opt.fillchars:append({ fold = " " })
