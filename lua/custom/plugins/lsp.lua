@@ -11,7 +11,7 @@ return {
 		"zapling/mason-conform.nvim",
 		"saghen/blink.cmp",
 	},
-	-- event = 'BufReadPre',
+	event = "BufReadPre",
 	config = function()
 		require("custom.configs.lsp")
 	end,
