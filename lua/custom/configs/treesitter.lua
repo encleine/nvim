@@ -1,6 +1,19 @@
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = { 'go', 'lua', 'tsx', 'typescript', 'sql', 'html', 'css', 'json', 'svelte', 'markdown', 'dockerfile' },
+	sync_install = false,
+	ensure_installed = {
+		"go",
+		"lua",
+		"tsx",
+		"typescript",
+		"sql",
+		"html",
+		"css",
+		"json",
+		"svelte",
+		"markdown",
+		"dockerfile",
+	},
 
 	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
 	auto_install = false,
@@ -10,9 +23,9 @@ require('nvim-treesitter.configs').setup {
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = '<leader><CR>',
-			node_incremental = '<CR>',
-			node_decremental = '<leader><CR>',
+			init_selection = "<leader><CR>",
+			node_incremental = "<CR>",
+			node_decremental = "<leader><CR>",
 		},
 	},
 	textobjects = {
@@ -20,25 +33,22 @@ require('nvim-treesitter.configs').setup {
 			enable = true,
 			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
 		},
+
 		swap = {
 			enable = true,
-			swap_next = {
-				['<leader>a'] = '@parameter.inner',
-			},
-			-- swap_previous = {
-			-- 	['<leader>s'] = '@parameter.inner',
-			-- },
+			swap_next = { ["<leader>a"] = "@parameter.inner" },
+			swap_previous = { ["<leader>A"] = "@parameter.inner" },
 		},
 	},
-}
+})
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.filetype.add({
 	extension = {
-		gotmpl = 'gotmpl',
+		gotmpl = "gotmpl",
 	},
 	pattern = {
 		[".*/templates/.*%.tpl"] = "gotmpl",
