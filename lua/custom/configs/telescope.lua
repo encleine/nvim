@@ -1,15 +1,16 @@
 local DropDownThem = { winblend = 10 }
 local NoPreview = { theme = "dropdown", winblend = 10, previewer = false }
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
-require('telescope').setup {
+require("telescope").setup({
 	defaults = {
 		mappings = {
 			i = {
-				['<C-u>'] = false,
-				['<C-d>'] = false,
-				['<C-j>'] = actions.move_selection_next,
-				['<C-k>'] = actions.move_selection_previous,
+				["<Esc>"] = actions.close,
+				["<C-u>"] = false,
+				["<C-d>"] = false,
+				["<C-j>"] = actions.move_selection_next,
+				["<C-k>"] = actions.move_selection_previous,
 			},
 		},
 	},
@@ -27,7 +28,7 @@ require('telescope').setup {
 	extensions = {
 		fzf = {},
 	},
-}
+})
 
 -- Enable telescope fzf native, if installed
-require('telescope').load_extension('fzf')
+require("telescope").load_extension("fzf")
