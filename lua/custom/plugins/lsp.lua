@@ -6,10 +6,10 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"neovim/nvim-lspconfig",
 
-		-- { 'j-hui/fidget.nvim',    opts = {} },
 		"stevearc/conform.nvim",
 		"zapling/mason-conform.nvim",
 		"saghen/blink.cmp",
+		"mattn/vim-goaddtags",
 	},
 	event = "BufReadPre",
 	config = function()
