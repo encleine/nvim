@@ -1,1 +1,39 @@
-{"palettes":[["macchiato","catppuccin-macchiato.conf"],["frappe","catppuccin-frappe.conf"],["mocha","catppuccin-mocha.conf"],["latte","catppuccin-latte.conf"],["monokai_soda","monokai-soda.conf"],["monokai_pro","monokai-pro.conf"],["monokai","monokai-classic.conf"],["monokai_ristretto","monokai-ristretto.conf"]],"keymaps":"enc","palette":{"green":"#97e023","pink":"#f3005f","base4":"#333842","brown":"#504945","base3":"#2E323C","yellow":"#dfd561","red":"#f3005f","base2":"#191919","aqua":"#78DCE8","border":"#A1B5B1","white":"#f6f6ec","purple":"#9c64fe","base6":"#72696A","base5":"#4d5154","base1":"#211F22","base8":"#e3e3e1","diff_text":"#23324d","orange":"#fa8419","name":"monokai_soda","base7":"#B1B1B1","grey":"#72696A","black":"#000000","diff_change":"#27406b","theme":"monokai","diff_remove":"#4a0f23","base0":"#222426","diff_add":"#3d5213"},"supermaven":true}
+{
+	"keymaps": "enc",
+	"supermaven": true,
+	"experimental": true,
+	"palettes": [
+		[
+			"macchiato",
+			"catppuccin-macchiato.conf"
+		],
+		[
+			"frappe",
+			"catppuccin-frappe.conf"
+		],
+		[
+			"mocha",
+			"catppuccin-mocha.conf"
+		],
+		[
+			"latte",
+			"catppuccin-latte.conf"
+		],
+		[
+			"monokai_soda",
+			"monokai-soda.conf"
+		],
+		[
+			"monokai_pro",
+			"monokai-pro.conf"
+		],
+		[
+			"monokai",
+			"monokai-classic.conf"
+		],
+		[
+			"monokai_ristretto",
+			"monokai-ristretto.conf"
+		]
+	]
+}
