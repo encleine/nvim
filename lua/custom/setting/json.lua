@@ -1,24 +1,32 @@
-local plenary = require('plenary.path')
+local plenary = require("plenary.path")
 
-local settings_data = nil
+local data = {
+	settings = nil,
+	palette = nil,
+}
 
 local function read_json_file(filepath)
-	if settings_data then
-		return settings_data
+	local loc = "settings"
+	if string.find(filepath, "palette.json") then
+		loc = "palette"
+	end
+
+	if data[loc] then
+		return data[loc]
 	end
 
 	local path = plenary:new(filepath)
-	if path:exists() then
-		local content = path:read()
-		settings_data = vim.json.decode(content)
-		return settings_data
+	if not path:exists() then
+		return {}
 	end
-	return {}
+
+	local content = path:read()
+	data[loc] = vim.json.decode(content)
+	return data[loc]
 end
 
-
 local function write_json_file(filepath, data)
-	local file = io.open(filepath, 'w')
+	local file = io.open(filepath, "w")
 	if not file then
 		vim.notify("Error: Could not open file: " .. filepath, vim.log.levels.ERROR)
 		return nil
@@ -29,10 +37,26 @@ local function write_json_file(filepath, data)
 	file:close()
 end
 
-
 local settings_path = vim.fn.stdpath("config") .. "/settings.json"
+local palette_path = vim.fn.stdpath("config") .. "/palette.json"
+
 return {
-	settings = read_json_file(settings_path),
-	write_json_file = write_json_file,
+	settings = function()
+		return read_json_file(settings_path)
+	end,
+	palette = function()
+		return read_json_file(palette_path)
+	end,
+	save_settings = function(new_settings)
+		data.settings = new_settings
+		write_json_file(settings_path, new_settings)
+	end,
+
+	save_palette = function(new_palette)
+		data.palette = new_palette
+		write_json_file(palette_path, new_palette)
+	end,
+
 	settings_path = settings_path,
+	palette_path = palette_path,
 }

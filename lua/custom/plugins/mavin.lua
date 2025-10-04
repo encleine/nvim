@@ -1,4 +1,4 @@
-local settings = require("custom.setting.json").settings
+local settings = require("custom.setting.json").settings()
 
 if not settings.supermaven then
 	return {}

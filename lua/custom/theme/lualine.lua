@@ -1,6 +1,6 @@
 return {
 	options = function(opts)
-		local palette = opts or require('custom.setting.json').settings.palette
+		local palette = opts or require("custom.setting.json").palette()
 		return {
 			theme = {
 				inactive = {
@@ -39,8 +39,8 @@ return {
 			globalstatus = true,
 			icons_enabled = true,
 			--
-			component_separators = { left = '🮲🮳', right = '' },
-			section_separators = { left = '🭠', right = '' },
+			component_separators = { left = "🮲🮳", right = "" },
+			section_separators = { left = "🭠", right = "" },
 		}
-	end
+	end,
 }

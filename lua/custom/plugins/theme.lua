@@ -4,13 +4,13 @@ return {
 		priority = 1000,
 		-- Configure your theme's setup function
 		config = function()
-			local settings = require("custom.setting.json").settings
-			if settings.palette.theme ~= "monokai" then
+			local palette = require("custom.setting.json").palette()
+			if palette.theme ~= "monokai" then
 				return false
 			end
 
-			require("monokai").setup({ palette = settings.palette, italics = false })
-			vim.cmd.colorscheme(settings.palette.name)
+			require("monokai").setup({ palette = palette, italics = false })
+			vim.cmd.colorscheme(palette.name)
 		end,
 	},
 	{
@@ -19,12 +19,12 @@ return {
 		name = "catppuccin",
 		-- Configure your theme's setup function
 		config = function()
-			local settings = require("custom.setting.json").settings
-			if settings.palette.theme ~= "catppuccin" then
+			local palette = require("custom.setting.json").palette()
+			if palette.theme ~= "catppuccin" then
 				return false
 			end
 
-			require("catppuccin").setup({ flavour = settings.palette.name })
+			require("catppuccin").setup({ flavour = palette.name })
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},

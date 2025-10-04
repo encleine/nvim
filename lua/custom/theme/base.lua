@@ -1,6 +1,3 @@
-local settings = require("custom.setting.json").settings
-local palette = settings.palette
-
 local monokai = require("monokai")
 
 local latte_pallete = require("catppuccin.palettes").get_palette("latte")
@@ -22,5 +19,4 @@ local palettes = {
 
 return {
 	palettes = palettes,
-	palette = palette,
 }

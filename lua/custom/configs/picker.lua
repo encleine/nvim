@@ -19,7 +19,7 @@ return {
 				.new(opts, {
 					prompt_title = "themes",
 					sorter = conf.generic_sorter(opts),
-					attach_mappings = function(prompt_bufnr, map)
+					attach_mappings = function(prompt_bufnr, _)
 						actions.select_default:replace(function()
 							actions.close(prompt_bufnr)
 
@@ -27,7 +27,9 @@ return {
 							if not selection then
 								return
 							end
-							if selection.display == settings.settings.palette.name then
+
+							local saved_palette = settings.palette()
+							if saved_palette and selection.display == saved_palette.name then
 								return
 							end
 
@@ -50,9 +52,7 @@ return {
 								vim.cmd.colorscheme("catppuccin")
 							end
 
-							settings.settings.palette = palette
-							settings.write_json_file(settings.settings_path, settings.settings)
-
+							settings.save_palette(palette)
 							local hooks = require("ibl.hooks")
 							hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 								vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = palette.pink })
@@ -65,7 +65,7 @@ return {
 					end,
 
 					finder = finders.new_table({
-						results = settings.settings.palettes,
+						results = settings.settings().palettes,
 						entry_maker = function(entry)
 							return {
 								value = entry,

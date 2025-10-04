@@ -1,9 +1,11 @@
-local palette = require('custom.setting.json').settings.palette
-local git = require('custom.functions.git')
+local palette = require("custom.setting.json").palette()
+local git = require("custom.functions.git")
 
 local function GitStatus(result)
 	local status = git.Get_git_repo_status()
-	if not status then return result end
+	if not status then
+		return result
+	end
 
 	if status.added ~= 0 then
 		table.insert(result, { text = " \u{f0ef0} " .. status.added, fg = palette.green })
@@ -14,17 +16,15 @@ local function GitStatus(result)
 	end
 
 	if status.removed ~= 0 then
-		table.insert(result, { text = ' \u{f0234} ' .. status.removed, fg = palette.red })
+		table.insert(result, { text = " \u{f0234} " .. status.removed, fg = palette.red })
 	end
 
 	if status.untracked ~= 0 then
-		table.insert(result, { text = ' \u{f4e8} ' .. status.untracked, fg = palette.red })
+		table.insert(result, { text = " \u{f4e8} " .. status.untracked, fg = palette.red })
 	end
-
 
 	return result
 end
-
 
 local function right()
 	local result = {}
@@ -33,7 +33,6 @@ local function right()
 	local warning = #vim.diagnostic.get(nil, { severity = seve.WARN })
 	local info = #vim.diagnostic.get(nil, { severity = seve.INFO })
 	local hint = #vim.diagnostic.get(nil, { severity = seve.HINT })
-
 
 	if error ~= 0 then
 		table.insert(result, { text = " \u{ea87} " .. error, fg = palette.red })
@@ -54,15 +53,14 @@ local function right()
 	return GitStatus(result)
 end
 
-
-require('bufferline').setup {
+require("bufferline").setup({
 	options = {
 		mode = "tabs",
 		-- buffer_close_icon = '',
 		themable = true,
 
 		-- tabline_position = "bottom", -- This is a custom option, change the position here
-		indicator = { style = 'none' },
+		indicator = { style = "none" },
 
 		diagnostics = "nvim_lsp",
 
@@ -70,7 +68,7 @@ require('bufferline').setup {
 		show_close_icon = false,
 		show_duplicate_prefix = false,
 		custom_areas = { right = right },
-		separator_style = { '', '' }
+		separator_style = { "", "" },
 	},
 
 	highlights = {
@@ -78,15 +76,15 @@ require('bufferline').setup {
 			---@diagnostic disable-next-line: assign-type-mismatch
 			bg = {
 				attribute = "bg",
-				highlight = "Whitespace"
-			}
+				highlight = "Whitespace",
+			},
 		},
 		background = {
 			---@diagnostic disable-next-line: assign-type-mismatch
 			bg = {
 				attribute = "bg",
-				highlight = "Whitespace"
-			}
+				highlight = "Whitespace",
+			},
 		},
-	}
-}
+	},
+})
