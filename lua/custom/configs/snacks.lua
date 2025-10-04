@@ -1,23 +1,38 @@
-require("snacks").setup {
+local function header()
+	local art = require("custom.theme.art")[3]
 
+	return string.format(
+		[[
+		if ! command -v lolcat &> /dev/null
+		then 
+			echo "%s"
+		else 
+			echo "%s" | lolcat
+		fi 
+	]],
+		art,
+		art
+	)
+end
+
+require("snacks").setup({
 	notifier = { enabled = true },
 	dashboard = {
 		enabled = true,
 		width = 85,
 		formats = {
 			key = function()
-				-- { item.key, hl = "key" },
 				return {}
 			end,
 		},
 		sections = {
 			{
 				pane = 2,
-				section = 'terminal',
-				cmd = 'echo "' .. require 'custom.theme.art'[3] .. '" | lolcat',
+				section = "terminal",
+				cmd = header(),
 				height = 9,
 				padding = 1,
-				align = 'center',
+				align = "center",
 			},
 
 			{
@@ -26,7 +41,7 @@ require("snacks").setup {
 				section = "recent_files",
 				indent = 2,
 				padding = 1,
-				cwd = true
+				cwd = true,
 			},
 			{
 				icon = " ",
@@ -36,7 +51,6 @@ require("snacks").setup {
 					return Snacks.git.get_root() ~= nil
 				end,
 				cmd = "git status --short --branch --renames",
-				-- cmd = [[git status --short --branch --renames | sed '1s/##.*\.\.\./Branch: /']],
 				height = 5,
 				padding = 1,
 				ttl = 5 * 60,
@@ -44,8 +58,8 @@ require("snacks").setup {
 			},
 			{
 				pane = 2,
-				section = "startup"
+				section = "startup",
 			},
 		},
 	},
-}
+})
