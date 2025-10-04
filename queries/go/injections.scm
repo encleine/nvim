@@ -108,3 +108,32 @@
   )
   (#any-of? @_method "Fprintf" "Fscanf" "Appendf" "Sscanf")
   (#set! injection.language "printf"))
+
+
+((call_expression
+	function: (identifier) @func (#any-of? @func "Loggerf")
+  arguments: (argument_list
+   (_)
+    [ 
+	 (raw_string_literal (raw_string_literal_content) @injection.content) 
+	 (interpreted_string_literal (interpreted_string_literal_content) @injection.content)  
+	 ] 
+    )
+  )
+  
+  (#set! injection.language "printf"))
+
+
+((call_expression
+  function: (selector_expression
+    field: (field_identifier) @_method)
+  arguments: (argument_list
+   (_)
+    [ 
+	 (raw_string_literal (raw_string_literal_content) @injection.content) 
+	 (interpreted_string_literal (interpreted_string_literal_content) @injection.content)  
+	 ] 
+    )
+  )
+  (#any-of? @_method "Loggerf")
+  (#set! injection.language "printf"))
