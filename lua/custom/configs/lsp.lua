@@ -24,6 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
+
 		if
 			client
 			and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
@@ -74,14 +75,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("LspDetach", {
-	group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-	callback = function(event)
-		vim.lsp.buf.clear_references()
-		vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event.buf })
-	end,
-})
-
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 local servers = {
@@ -93,11 +86,39 @@ local servers = {
 		cmd = { "gopls" },
 		settings = {
 			gopls = {
+				gofumpt = true,
+				usePlaceholders = true,
 				completeUnimported = true,
 				staticcheck = true,
+				directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+				semanticTokens = true,
+
 				analyses = {
 					unusedparams = true,
 					fieldalignment = true,
+					unusedwrite = true,
+					useany = true,
+				},
+
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = true,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				},
+
+				codelenses = {
+					gc_details = false,
+					generate = true,
+					regenerate_cgo = true,
+					run_govulncheck = true,
+					test = true,
+					tidy = true,
+					upgrade_dependency = true,
+					vendor = true,
 				},
 			},
 		},
@@ -131,7 +152,7 @@ local formatters_by_ft = {
 	javascript = { "ts_ls" },
 	typescript = { "ts_ls" },
 	go = {
-		"gofmt",
+		"gopls",
 		-- "injected",
 	}, -- gofmt is a common formatter for Go
 	json = { "prettierd" },
