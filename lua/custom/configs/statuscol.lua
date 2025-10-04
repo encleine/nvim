@@ -12,12 +12,10 @@ ffi.cdef([[
 	foldinfo_T fold_info(win_T* wp, int lnum);
 ]])
 
-
 local function fold_info(args)
 	local lnum = args.lnum
 	local currFold = C.fold_info(args.wp, lnum)
 	local nextFold = C.fold_info(args.wp, lnum + 1)
-
 
 	return {
 		level = currFold.level,
@@ -29,7 +27,9 @@ end
 
 local function foldfunc(args)
 	local width = args.fold.width
-	if width == 0 then return "" end
+	if width == 0 then
+		return ""
+	end
 
 	local fold = fold_info(args)
 	local sep = ""
@@ -69,8 +69,12 @@ local function lnumfunc(args, segment)
 	if args.sclnu and segment.sign and segment.sign.wins[args.win].signs[args.lnum] then
 		return "%=" .. builtin.signfunc(args, segment)
 	end
-	if not args.rnu and not args.nu then return "" end
-	if args.virtnum ~= 0 then return "%=" end
+	if not args.rnu and not args.nu then
+		return ""
+	end
+	if args.virtnum ~= 0 then
+		return "%="
+	end
 
 	local lnum = args.rnu and (args.relnum > 0 and args.relnum or (args.nu and args.lnum or 0)) or args.lnum
 	local sep = "%=" .. lnum
@@ -79,24 +83,22 @@ local function lnumfunc(args, segment)
 		sep = "%#string#" .. sep
 	end
 
-	return string.rep(' ', 6 - #sep) .. sep .. ' '
+	return string.rep(" ", 6 - #sep) .. sep .. " "
 end
 
-require("statuscol").setup(
-	{
-		relculright = true,
-		segments = {
-			{
-				hl = "FoldColumn",
-				text = { foldfunc },
-			},
-			{
-				text = { lnumfunc },
-			},
-			{
-				text = { "%s" },
-				maxwidth = 1,
-			},
+require("statuscol").setup({
+	relculright = true,
+	segments = {
+		{
+			hl = "FoldColumn",
+			text = { foldfunc },
 		},
-	}
-)
+		{
+			text = { lnumfunc },
+		},
+		{
+			text = { "%s" },
+			maxwidth = 1,
+		},
+	},
+})
