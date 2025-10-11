@@ -1,3 +1,11 @@
+local function reload_ghostty(ordinal)
+	vim.fn.system(
+		string.format("cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/curent-theme.conf*", ordinal)
+	)
+
+	vim.fn.system("pkill -SIGUSR2 ghostty;")
+end
+
 return {
 	theme_picker = function()
 		-- ALL Telescope requires moved inside this function
@@ -36,12 +44,7 @@ return {
 							monokai.setup({})
 							catppuccin.setup({})
 
-							vim.fn.system(
-								string.format(
-									"cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/curent-theme.conf",
-									selection.ordinal
-								)
-							)
+							reload_ghostty(selection.ordinal)
 
 							local palette = palettes[selection.display]
 							if palette.theme == "monokai" then
