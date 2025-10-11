@@ -50,7 +50,24 @@ require("snacks").setup({
 				enabled = function()
 					return Snacks.git.get_root() ~= nil
 				end,
-				cmd = "git status --short --branch --renames",
+				cmd = [=[
+
+if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
+
+	BARE_PATH=$(git worktree list | head -n 1 | awk '{print $1}')
+
+    git worktree list | awk -v AWK_PREFIX="${BARE_PATH}/" '
+      !/\(bare\)/ {
+        sub(AWK_PREFIX, "", $1);
+        gsub(/[\[\]]/, "", $3); 
+        printf "󰊢  ./%s branch [%s]\n", $1, $3
+      }
+    '
+
+else 
+	git status --short --branch --renames
+fi
+				]=],
 				height = 5,
 				padding = 1,
 				ttl = 5 * 60,
