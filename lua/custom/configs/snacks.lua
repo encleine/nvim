@@ -59,8 +59,7 @@ if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
     git worktree list | awk -v AWK_PREFIX="${BARE_PATH}/" '
       !/\(bare\)/ {
         sub(AWK_PREFIX, "", $1);
-        gsub(/[\[\]]/, "", $3); 
-        printf "󰊢  ./%s branch [%s]\n", $1, $3
+        printf "󰊢  ./%s branch %s\n", $1, $3
       }
     '
 
