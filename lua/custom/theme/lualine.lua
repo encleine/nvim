@@ -1,6 +1,13 @@
 return {
 	options = function(opts)
 		local palette = opts or require("custom.setting.json").palette()
+
+		if palette and palette.theme == "catppuccin" then
+			return {
+				theme = "catppuccin",
+			}
+		end
+
 		return {
 			theme = {
 				inactive = {
