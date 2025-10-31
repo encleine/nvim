@@ -8,8 +8,7 @@ local function header()
 			echo "%s"
 		else 
 			echo "%s" | lolcat
-		fi 
-	]],
+		fi]],
 		art,
 		art
 	)
@@ -65,8 +64,7 @@ if [ "$(git rev-parse --is-bare-repository)" = "true" ]; then
 
 else 
 	git status --short --branch --renames
-fi
-				]=],
+fi]=],
 				height = 5,
 				padding = 1,
 				ttl = 5 * 60,
