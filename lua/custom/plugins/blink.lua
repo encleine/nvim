@@ -1,38 +1,43 @@
 return {
-	'saghen/blink.cmp',
-	dependencies = { 'rafamadriz/friendly-snippets' },
+	"saghen/blink.cmp",
+	dependencies = { "rafamadriz/friendly-snippets" },
 
-	version = '1.*',
-	event = 'BufReadPre',
+	version = "1.*",
+	event = "BufReadPre",
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
 		keymap = {
-			["<tab>"] = { 'select_and_accept', 'fallback' },
-			["<enter>"] = { 'select_and_accept', 'fallback' },
-			['<Up>'] = { 'select_prev', 'fallback' },
-			['<Down>'] = { 'select_next', 'fallback' },
-			['<C-e>'] = { 'cancel', 'show', 'fallback' },
-			['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+			["<tab>"] = { "select_and_accept", "fallback" },
+			["<enter>"] = { "select_and_accept", "fallback" },
+			["<Up>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<C-e>"] = { "cancel", "show", "fallback" },
+			["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 		},
 
 		signature = { enabled = true },
 
 		appearance = {
-			nerd_font_variant = 'mono'
+			nerd_font_variant = "mono",
 		},
 
-
 		sources = {
-			default = { 'lsp', 'path', 'snippets', 'buffer' },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 
 			per_filetype = {
-				sql = { 'snippets', 'dadbod', 'buffer' },
+				sql = { "snippets", "dadbod", "buffer" },
 			},
 			-- add vim-dadbod-completion to your completion providers
 			providers = {
 				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					-- make lazydev completions top priority (see `:h blink.cmp`)
+					score_offset = 100,
+				},
 			},
 		},
 
@@ -52,8 +57,10 @@ return {
 								local icon = ctx.kind_icon
 								-- if LSP source, check for color derived from documentation
 								if ctx.item.source_name == "LSP" then
-									local color_item = require("nvim-highlight-colors").format(ctx.item.documentation,
-										{ kind = ctx.kind })
+									local color_item = require("nvim-highlight-colors").format(
+										ctx.item.documentation,
+										{ kind = ctx.kind }
+									)
 									if color_item and color_item.abbr ~= "" then
 										icon = color_item.abbr
 									end
@@ -65,8 +72,10 @@ return {
 								local highlight = "BlinkCmpKind" .. ctx.kind
 								-- if LSP source, check for color derived from documentation
 								if ctx.item.source_name == "LSP" then
-									local color_item = require("nvim-highlight-colors").format(ctx.item.documentation,
-										{ kind = ctx.kind })
+									local color_item = require("nvim-highlight-colors").format(
+										ctx.item.documentation,
+										{ kind = ctx.kind }
+									)
 									if color_item and color_item.abbr_hl_group then
 										highlight = color_item.abbr_hl_group
 									end
@@ -80,5 +89,5 @@ return {
 		},
 	},
 
-	opts_extend = { "sources.default" }
+	opts_extend = { "sources.default" },
 }
