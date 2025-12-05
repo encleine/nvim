@@ -1,6 +1,6 @@
-require 'custom.autocmd.sql'
-require 'custom.autocmd.yank'
-require 'custom.autocmd.go'
-require 'custom.autocmd.typescript'
-require 'custom.autocmd.snacks'
-require 'custom.autocmd.html'
+require("custom.autocmd.sql")
+require("custom.autocmd.yank")
+require("custom.autocmd.go")
+require("custom.autocmd.typescript")
+require("custom.autocmd.snacks")
+require("custom.autocmd.html")

@@ -1,7 +1,7 @@
 return {
-	'akinsho/bufferline.nvim',
+	"akinsho/bufferline.nvim",
 	version = "*",
-	dependencies = 'nvim-tree/nvim-web-devicons',
-	config = function() require 'custom.configs.bufferline' end,
-	event = 'BufReadPre',
+	dependencies = "nvim-tree/nvim-web-devicons",
+	config = require("custom.configs.bufferline"),
+	event = "BufReadPre",
 }

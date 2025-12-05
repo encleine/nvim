@@ -41,7 +41,5 @@ return {
 	},
 
 	lazy = true,
-	config = function()
-		require("custom.configs.telescope")
-	end,
+	config = require("custom.configs.telescope"),
 }

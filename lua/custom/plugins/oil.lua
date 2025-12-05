@@ -7,7 +7,6 @@ return {
 		require("custom.configs.oil")
 	end,
 
-	lazy = false,
 	keys = {
 		{
 			"-",

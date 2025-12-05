@@ -1,33 +1,5 @@
-local settings = require("custom.setting.json").settings()
-if not settings then
-	return
-end
-
-local selection_modes = {
-	["@parameter.outer"] = "v", -- charwise
-	["@function.outer"] = "V", -- linewise
-	["@class.outer"] = "<c-v>", -- blockwise
-}
-
-local keymaps = {
-
-	["af"] = "@function.outer",
-	["if"] = "@function.inner",
-	["ac"] = "@class.outer",
-
-	["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-	["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
-}
-
-if not settings.experimental then
-	keymaps = {}
-	selection_modes = {}
-end
-
-require("nvim-treesitter.configs").setup({
-	-- Add languages to be installed here that you want installed for treesitter
-	sync_install = false,
-	ensure_installed = {
+return function()
+	require("nvim-treesitter").install({
 		"go",
 		"lua",
 		"tsx",
@@ -39,51 +11,19 @@ require("nvim-treesitter.configs").setup({
 		"svelte",
 		"markdown",
 		"dockerfile",
-	},
+		"yaml",
+	})
 
-	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-	auto_install = false,
+	-- Diagnostic keymaps
+	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+	-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	indent = { enable = true },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<leader><CR>",
-			node_incremental = "<CR>",
-			node_decremental = "<leader><CR>",
+	vim.filetype.add({
+		extension = {
+			gotmpl = "gotmpl",
 		},
-	},
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-
-			-- experimental
-			keymaps = keymaps,
-			selection_modes = selection_modes,
+		pattern = {
+			[".*/templates/.*%.tpl"] = "gotmpl",
 		},
-
-		swap = {
-			enable = true,
-			swap_next = { ["<leader>a"] = "@parameter.inner" },
-			swap_previous = { ["<leader>A"] = "@parameter.inner" },
-		},
-	},
-})
-
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-vim.filetype.add({
-	extension = {
-		gotmpl = "gotmpl",
-	},
-	pattern = {
-		[".*/templates/.*%.tpl"] = "gotmpl",
-	},
-})
+	})
+end

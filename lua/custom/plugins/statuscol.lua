@@ -1,6 +1,6 @@
 return {
 	"luukvbaal/statuscol.nvim",
 
-	event = 'BufReadPre',
-	config = function() require 'custom.configs.statuscol' end
+	event = "BufReadPre",
+	config = require("custom.configs.statuscol"),
 }
