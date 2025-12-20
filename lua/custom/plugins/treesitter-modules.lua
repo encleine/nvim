@@ -1,10 +1,10 @@
 return {
 	"MeanderingProgrammer/treesitter-modules.nvim",
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	lazy = false,
 	---@module 'treesitter-modules'
 	---@type ts.mod.UserConfig
 	opts = {
-
 		highlight = {
 			enable = true,
 			disable = false,

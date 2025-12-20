@@ -1,20 +1,10 @@
 return function()
 	vim.api.nvim_create_autocmd("LspAttach", {
-		group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+		group = vim.api.nvim_create_augroup("lsp-attacher", { clear = true }),
 		callback = function(event)
-			-- NOTE: Remember that Lua is a real programming language, and as such it is possible
-			-- to define small helper and utility functions so you don't have to repeat yourself.
-			--
-			-- In this case, we create a function that lets us more easily define mappings specific
-			-- for LSP related items. It sets the mode, buffer and description for us each time.
 			local map = function(mod, keys, func, desc)
 				vim.keymap.set(mod, keys, func, { buffer = event.buf, desc = desc })
 			end
-
-			map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-			map("n", "<leader>ra", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-			map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
 			local function client_supports_method(client, method, bufnr)
 				if vim.fn.has("nvim-0.11") == 1 then
@@ -23,6 +13,12 @@ return function()
 					return client.supports_method(method, { bufnr = bufnr })
 				end
 			end
+
+			map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+			map("n", "<leader>ra", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+			map("n", "gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+			map("n", "<leader>lc", vim.lsp.codelens.run, "[L]SP [C]odeLens Run")
 
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -78,15 +74,14 @@ return function()
 		end,
 	})
 
-	local capabilities = require("blink.cmp").get_lsp_capabilities()
+	local servers = {
+		dockerls = { filetypes = { "dockerfile" } },
 
-	local ensure_installed = {
-		dockerls = {},
-
-		rust_analyzer = {},
-		goimports = {},
+		rust_analyzer = { filetypes = { "rust" } },
 		gopls = {
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 			cmd = { "gopls" },
+
 			settings = {
 				gopls = {
 					gofumpt = true,
@@ -94,13 +89,18 @@ return function()
 					completeUnimported = true,
 					staticcheck = true,
 					directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-					semanticTokens = true,
+					semanticTokens = false,
+					symbolMatcher = "Fuzzy",
+					vulncheck = "Imports",
 
 					analyses = {
+						ST1000 = false, -- "at least one file must define a package"
+						ST1003 = false, -- "should not use underscores in package names"
 						unusedparams = true,
-						fieldalignment = true,
 						unusedwrite = true,
 						useany = true,
+						shadow = true,
+						nilness = true,
 					},
 
 					hints = {
@@ -109,12 +109,11 @@ return function()
 						compositeLiteralTypes = true,
 						constantValues = true,
 						functionTypeParameters = true,
-						parameterNames = true,
 						rangeVariableTypes = true,
+						parameterNames = true,
 					},
 
 					codelenses = {
-						gc_details = false,
 						generate = true,
 						regenerate_cgo = true,
 						run_govulncheck = true,
@@ -127,41 +126,90 @@ return function()
 			},
 		},
 
-		jsonls = {},
+		jsonls = {
+			filetypes = { "json", "jsonc" },
+		},
 
 		lua_ls = {
-			Lua = {
-				workspace = { checkThirdParty = false },
-				telemetry = { enable = false },
-				diagnostics = {
-					disable = { "missing-fields" },
-					globals = { "vim" },
+			cmd = { "lua-language-server" },
+			on_init = function(client)
+				if client.workspace_folders then
+					local path = client.workspace_folders[1].name
+					if
+						path ~= vim.fn.stdpath("config")
+						and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+					then
+						return
+					end
+				end
+
+				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+					runtime = {
+						version = "LuaJIT",
+						path = {
+							"lua/?.lua",
+							"lua/?/init.lua",
+						},
+					},
+
+					workspace = {
+						checkThirdParty = false,
+						library = {
+							vim.env.VIMRUNTIME,
+						},
+					},
+				})
+			end,
+
+			filetypes = { "lua" },
+			root_markers = {
+				{ ".luarc.json", ".luarc.jsonc" },
+				".emmyrc.json",
+				".luacheckrc",
+				".stylua.toml",
+				"stylua.toml",
+				"selene.toml",
+				"selene.yml",
+				".git",
+			},
+			settings = {
+				Lua = {
+					hint = {
+						enable = true,
+						semicolon = "Disable",
+					},
 				},
 			},
 		},
 
-		pyright = {},
-		biome = {},
-		ts_ls = {},
-		cssls = {},
-		black = {},
-		qmlls = {},
-		prettierd = {},
-		cssls = {},
-		sqlfmt = {},
-		stylua = {},
+		pyright = { filetypes = { "python" } },
+		biome = {
+			filetypes = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+		},
+		cssls = { filetypes = { "css" } },
+		qmlls = { filetypes = { "qml" } },
+	}
+
+	local formaters = {
+		"black",
+		"stylua",
+		"goimports",
+		"prettierd",
+		"sqlfmt",
+		"taplo",
 	}
 
 	local formatters_by_ft = {
 		qml = { "qmlls" },
 		python = { "black" },
 		lua = { "stylua" },
-		javascript = { "ts_ls" },
-		typescript = { "ts_ls" },
+		javascript = { "biome" },
+		typescript = { "biome" },
 		go = {
-			"gopls",
+			"goimports",
 			-- "injected",
-		}, -- gofmt is a common formatter for Go
+		},
+		toml = { "taplo" },
 		json = { "prettierd" },
 		css = { "cssls" },
 		markdown = { "prettierd" },
@@ -176,33 +224,23 @@ return function()
 		},
 	})
 
-	-- Customize the "injected" formatter
-	-- require("conform").formatters.injected = {
-	-- 	-- Set the options field
-	-- 	options = {
-	-- 		-- ignore_errors = true,
-	-- 		lang_to_ext = {
-	-- 			sql = "sql",
-	-- 		},
-	-- 		lang_to_formatters = {
-	-- 			sql = { "sqlfmt" },
-	-- 		},
-	-- 	},
-	-- }
-	--
-
+	local ensure_installed = vim.tbl_keys(servers)
+	vim.list_extend(ensure_installed, formaters)
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+	local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+	vim.lsp.config("*", {
+		capabilities = capabilities,
+	})
+
+	for server_name, config in pairs(servers) do
+		vim.lsp.config(server_name, config)
+		vim.lsp.enable(server_name)
+	end
 
 	require("mason-lspconfig").setup({
 		automatic_enable = true,
-		ensure_installed = {},
 		automatic_installation = false,
-		handlers = {
-			function(server_name)
-				local server = servers[server_name] or {}
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				require("lspconfig")[server_name].setup(server)
-			end,
-		},
 	})
 end
