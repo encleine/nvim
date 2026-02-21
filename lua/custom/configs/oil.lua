@@ -5,6 +5,7 @@ require("oil").setup({
 	view_options = {
 		show_hidden = true,
 	},
+	delete_to_trash = true,
 	keymaps = {
 		["<C-s>"] = false,
 		["<C-h>"] = false,

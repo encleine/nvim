@@ -228,54 +228,27 @@ return function()
 		"dockerls",
 		"rust_analyzer",
 		"pyright",
-		"qmlls",
 		"biome",
 	}
-
-	local formatters_by_ft = {
-		qml = { "qmlls" },
-		python = { "black" },
-		lua = { "stylua" },
-		go = { "goimports" },
-		toml = { "taplo" },
-		markdown = { "prettierd" },
-		sql = { "sqlfmt" },
-
-		jsonc = { "biome-check" },
-		json = { "biome-check" },
-		css = { "biome-check" },
-		typescriptreact = { "biome-check" },
-		typescript = { "biome-check" },
-		javascriptreact = { "biome-check" },
-		javascript = { "biome-check" },
-	}
-
-	require("conform").setup({
-		formatters_by_ft = formatters_by_ft,
-		format_on_save = {
-			lsp_format = "never",
-			timeout_ms = 500,
-		},
-	})
 
 	vim.list_extend(ensure_installed, vim.tbl_keys(servers))
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-	local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-	vim.lsp.config("*", {
-		capabilities = capabilities,
-	})
-
-	for server_name, config in pairs(servers) do
-		if config ~= nil then
-			vim.lsp.config(server_name, config)
+	local function setup_lsps()
+		for server_name, config in pairs(servers) do
+			if config ~= nil then
+				vim.lsp.config(server_name, config)
+			end
 		end
+
+		require("mason-lspconfig").setup({ automatic_enable = { exclude = {} } })
 	end
 
-	require("mason-lspconfig").setup({
-		automatic_enable = {
-			exclude = {},
-		},
+	vim.api.nvim_create_autocmd("User", {
+		group = vim.api.nvim_create_augroup("lsp-setup", { clear = true }),
+		pattern = "SnacksDashboardOpened",
+		callback = function()
+			vim.schedule(setup_lsps)
+		end,
 	})
 end

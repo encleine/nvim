@@ -4,15 +4,23 @@ return {
 	event = "VeryLazy",
 	lazy = true,
 	opts = {
+		notify = { enabled = false },
 		messages = { view = "mini", view_warn = "mini" },
 		lsp = {
 			override = {
-				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-				["vim.lsp.util.stylize_markdown"] = true,
+				["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+				["vim.lsp.util.stylize_markdown"] = false,
 			},
-			signature = {
-				enabled = false,
+
+			hover = {
+				enabled = true,
+				opts = {
+					border = "rounded",
+					winblend = 10,
+				},
 			},
+
+			signature = { enabled = false },
 		},
 
 		presets = {

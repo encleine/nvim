@@ -8,7 +8,6 @@ return function()
 	vim.g.rainbow_delimiters = { highlight = "RainbowRed" }
 
 	require("ibl").setup({
-		-- indent = { char = "│" },
 		indent = {
 			char = "┇",
 		},
