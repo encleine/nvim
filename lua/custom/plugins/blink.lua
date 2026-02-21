@@ -1,6 +1,9 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "rafamadriz/friendly-snippets" },
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"xzbdmw/colorful-menu.nvim",
+	},
 
 	version = "1.*",
 	event = "BufReadPre",
@@ -13,8 +16,8 @@ return {
 			["<enter>"] = { "select_and_accept", "fallback" },
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
-			["<C-e>"] = { "cancel", "show", "fallback" },
-			["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = { "select_next", "fallback" },
 		},
 
 		signature = { enabled = true },
@@ -27,15 +30,14 @@ return {
 			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 
 			per_filetype = {
-				sql = { "snippets", "dadbod", "buffer" },
+				sql = { "snippets", "dadbod", "lsp", "buffer" },
 			},
-			-- add vim-dadbod-completion to your completion providers
+
 			providers = {
 				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 				lazydev = {
 					name = "LazyDev",
 					module = "lazydev.integrations.blink",
-					-- make lazydev completions top priority (see `:h blink.cmp`)
 					score_offset = 100,
 				},
 			},
@@ -49,38 +51,14 @@ return {
 
 			menu = {
 				draw = {
+					columns = { { "kind_icon" }, { "label", gap = 1 } },
 					components = {
-						-- customize the drawing of kind icons
-						kind_icon = {
+						label = {
 							text = function(ctx)
-								-- default kind icon
-								local icon = ctx.kind_icon
-								-- if LSP source, check for color derived from documentation
-								if ctx.item.source_name == "LSP" then
-									local color_item = require("nvim-highlight-colors").format(
-										ctx.item.documentation,
-										{ kind = ctx.kind }
-									)
-									if color_item and color_item.abbr ~= "" then
-										icon = color_item.abbr
-									end
-								end
-								return icon .. ctx.icon_gap
+								return require("colorful-menu").blink_components_text(ctx)
 							end,
 							highlight = function(ctx)
-								-- default highlight group
-								local highlight = "BlinkCmpKind" .. ctx.kind
-								-- if LSP source, check for color derived from documentation
-								if ctx.item.source_name == "LSP" then
-									local color_item = require("nvim-highlight-colors").format(
-										ctx.item.documentation,
-										{ kind = ctx.kind }
-									)
-									if color_item and color_item.abbr_hl_group then
-										highlight = color_item.abbr_hl_group
-									end
-								end
-								return highlight
+								return require("colorful-menu").blink_components_highlight(ctx)
 							end,
 						},
 					},

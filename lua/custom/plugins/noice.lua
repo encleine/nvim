@@ -1,7 +1,7 @@
 return {
 	"folke/noice.nvim",
 
-	event = 'VeryLazy',
+	event = "VeryLazy",
 	lazy = true,
 	opts = {
 		messages = { view = "mini", view_warn = "mini" },
@@ -12,7 +12,7 @@ return {
 			},
 			signature = {
 				enabled = false,
-			}
+			},
 		},
 
 		presets = {
@@ -64,13 +64,10 @@ return {
 				},
 			},
 		},
-
-
 	},
-
 
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
-	}
+	},
 }

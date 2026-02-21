@@ -26,7 +26,7 @@ return function()
 				client
 				and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
 			then
-				local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+				local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 				vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 					buffer = event.buf,
 					group = highlight_augroup,
@@ -40,29 +40,13 @@ return function()
 				})
 
 				vim.api.nvim_create_autocmd("LspDetach", {
-					group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+					group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
 					callback = function(event2)
 						vim.lsp.buf.clear_references()
-						vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+						vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
 					end,
 				})
 			end
-
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = vim.api.nvim_create_augroup("GoOrganizeImports", { clear = true }),
-				buffer = event.buf,
-				callback = function()
-					vim.lsp.buf.code_action({
-						context = {
-							diagnostics = {},
-							only = { "source.organizeImports" },
-						},
-						apply = true,
-						timeout_ms = 500,
-					})
-				end,
-				desc = "Organize Go imports on save",
-			})
 
 			if
 				client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
@@ -75,9 +59,6 @@ return function()
 	})
 
 	local servers = {
-		dockerls = { filetypes = { "dockerfile" } },
-
-		rust_analyzer = { filetypes = { "rust" } },
 		gopls = {
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 			cmd = { "gopls" },
@@ -126,12 +107,9 @@ return function()
 			},
 		},
 
-		jsonls = {
-			filetypes = { "json", "jsonc" },
-		},
-
 		lua_ls = {
 			cmd = { "lua-language-server" },
+
 			on_init = function(client)
 				if client.workspace_folders then
 					local path = client.workspace_folders[1].name
@@ -182,50 +160,105 @@ return function()
 			},
 		},
 
-		pyright = { filetypes = { "python" } },
-		biome = {
-			filetypes = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+		jsonls = {
+			on_init = function(client)
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end,
+			settings = {
+				json = {
+					schemas = require("schemastore").json.schemas(),
+					validate = { enable = true },
+				},
+			},
 		},
-		cssls = { filetypes = { "css" } },
-		qmlls = { filetypes = { "qml" } },
+
+		yamlls = {
+			settings = {
+				yaml = {
+					schemaStore = {
+						enable = false,
+						url = "",
+					},
+					schemas = require("schemastore").yaml.schemas(),
+				},
+			},
+		},
+
+		vtsls = {
+			on_init = function(client)
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end,
+
+			settings = {
+				vtsls = {
+					autoUseWorkspaceTsdk = true,
+					experimental = {
+						completion = {
+							enableServerSideFuzzyMatch = true,
+						},
+					},
+				},
+			},
+		},
+
+		tailwindcss = {
+			settings = {
+				tailwindCSS = {
+					files = {
+						exclude = { "node_modules", ".git", ".next", ".cache" },
+					},
+				},
+			},
+		},
 	}
 
-	local formaters = {
+	local ensure_installed = {
 		"black",
 		"stylua",
 		"goimports",
 		"prettierd",
 		"sqlfmt",
 		"taplo",
+		"hadolint",
+		"typos",
+		"sqlfluff",
+		"ruff",
+		"dockerls",
+		"rust_analyzer",
+		"pyright",
+		"qmlls",
+		"biome",
 	}
 
 	local formatters_by_ft = {
 		qml = { "qmlls" },
 		python = { "black" },
 		lua = { "stylua" },
-		javascript = { "biome" },
-		typescript = { "biome" },
-		go = {
-			"goimports",
-			-- "injected",
-		},
+		go = { "goimports" },
 		toml = { "taplo" },
-		json = { "prettierd" },
-		css = { "cssls" },
 		markdown = { "prettierd" },
 		sql = { "sqlfmt" },
+
+		jsonc = { "biome-check" },
+		json = { "biome-check" },
+		css = { "biome-check" },
+		typescriptreact = { "biome-check" },
+		typescript = { "biome-check" },
+		javascriptreact = { "biome-check" },
+		javascript = { "biome-check" },
 	}
 
 	require("conform").setup({
 		formatters_by_ft = formatters_by_ft,
 		format_on_save = {
-			lsp_format = "fallback",
+			lsp_format = "never",
 			timeout_ms = 500,
 		},
 	})
 
-	local ensure_installed = vim.tbl_keys(servers)
-	vim.list_extend(ensure_installed, formaters)
+	vim.list_extend(ensure_installed, vim.tbl_keys(servers))
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -235,12 +268,14 @@ return function()
 	})
 
 	for server_name, config in pairs(servers) do
-		vim.lsp.config(server_name, config)
-		vim.lsp.enable(server_name)
+		if config ~= nil then
+			vim.lsp.config(server_name, config)
+		end
 	end
 
 	require("mason-lspconfig").setup({
-		automatic_enable = true,
-		automatic_installation = false,
+		automatic_enable = {
+			exclude = {},
+		},
 	})
 end

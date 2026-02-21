@@ -3,37 +3,13 @@
 	"supermaven": true,
 	"experimental": true,
 	"palettes": [
-		[
-			"macchiato",
-			"catppuccin-macchiato.conf"
-		],
-		[
-			"frappe",
-			"catppuccin-frappe.conf"
-		],
-		[
-			"mocha",
-			"catppuccin-mocha.conf"
-		],
-		[
-			"latte",
-			"catppuccin-latte.conf"
-		],
-		[
-			"monokai_soda",
-			"monokai-soda.conf"
-		],
-		[
-			"monokai_pro",
-			"monokai-pro.conf"
-		],
-		[
-			"monokai",
-			"monokai-classic.conf"
-		],
-		[
-			"monokai_ristretto",
-			"monokai-ristretto.conf"
-		]
+		["macchiato", "catppuccin-macchiato.conf"],
+		["frappe", "catppuccin-frappe.conf"],
+		["mocha", "catppuccin-mocha.conf"],
+		["latte", "catppuccin-latte.conf"],
+		["monokai_soda", "monokai-soda.conf"],
+		["monokai_pro", "monokai-pro.conf"],
+		["monokai", "monokai-classic.conf"],
+		["monokai_ristretto", "monokai-ristretto.conf"]
 	]
 }
