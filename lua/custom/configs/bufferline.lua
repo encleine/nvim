@@ -13,7 +13,7 @@ return function()
 		end
 
 		if status.changed ~= 0 then
-			table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = palette.aqua or palette.blue })
+			table.insert(result, { text = " \u{f1a3f} " .. status.changed, fg = palette.yellow })
 		end
 
 		if status.removed ~= 0 then
@@ -29,26 +29,24 @@ return function()
 
 	local function right()
 		local result = {}
-		local seve = vim.diagnostic.severity
-		local error = #vim.diagnostic.get(nil, { severity = seve.ERROR })
-		local warning = #vim.diagnostic.get(nil, { severity = seve.WARN })
-		local info = #vim.diagnostic.get(nil, { severity = seve.INFO })
-		local hint = #vim.diagnostic.get(nil, { severity = seve.HINT })
 
-		if error ~= 0 then
-			table.insert(result, { text = " \u{ea87} " .. error, fg = palette.red })
-		end
+		local counts = vim.diagnostic.count() or {}
 
-		if warning ~= 0 then
-			table.insert(result, { text = "  " .. warning, fg = palette.orange })
-		end
+		local diags = {
+			{ val = counts[vim.diagnostic.severity.ERROR] or 0, icon = " \u{ea87} ", color = palette.red },
+			{ val = counts[vim.diagnostic.severity.WARN] or 0, icon = "  ", color = palette.yellow },
+			{ val = counts[vim.diagnostic.severity.HINT] or 0, icon = "  ", color = palette.green },
+			{
+				val = counts[vim.diagnostic.severity.INFO] or 0,
+				icon = " \u{f449} ",
+				color = palette.aqua or palette.blue,
+			},
+		}
 
-		if hint ~= 0 then
-			table.insert(result, { text = "  " .. hint, fg = palette.green })
-		end
-
-		if info ~= 0 then
-			table.insert(result, { text = " \u{f449} " .. info, fg = palette.aqua or palette.blue })
+		for _, d in ipairs(diags) do
+			if d.val > 0 then
+				table.insert(result, { text = d.icon .. d.val, fg = d.color })
+			end
 		end
 
 		return GitStatus(result)

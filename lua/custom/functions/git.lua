@@ -1,8 +1,10 @@
 local M = {}
 
 function M.get_git_root()
-	local handle = io.popen('git rev-parse --show-toplevel 2>/dev/null')
-	if not handle then return nil end
+	local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
+	if not handle then
+		return nil
+	end
 
 	local result = handle:read("*a")
 	handle:close()
@@ -17,11 +19,15 @@ end
 function M.Get_git_repo_status()
 	local git_root = M.get_git_root()
 
-	if not git_root then return end
+	if not git_root then
+		return
+	end
 
 	-- Run `git status --porcelain` to get the repository status
-	local handle = io.popen('git status --porcelain 2>/dev/null')
-	if not handle then return end
+	local handle = io.popen("git status --porcelain 2>/dev/null")
+	if not handle then
+		return
+	end
 
 	local result = handle:read("*a")
 	handle:close()
@@ -30,10 +36,9 @@ function M.Get_git_repo_status()
 		added = 0,
 		changed = 0,
 		removed = 0,
-		untracked = 0
+		untracked = 0,
 	}
 
-	-- Parse the output of `git status --porcelain`
 	for line in result:gmatch("[^\r\n]+") do
 		local change = line:sub(1, 2)
 
