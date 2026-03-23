@@ -2,7 +2,7 @@ return function()
 	local formatters_by_ft = {
 		python = { "black" },
 		lua = { "stylua" },
-		go = { "goimports" },
+		go = { "gofmt", "goimports" },
 		toml = { "taplo" },
 		markdown = { "prettierd" },
 		sql = { "sqlfmt" },

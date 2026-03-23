@@ -21,6 +21,12 @@ vim.keymap.set("n", "<C-j>", ":<C-U>TmuxNavigateDown<cr>", { silent = true })
 vim.keymap.set("n", "<C-k>", ":<C-U>TmuxNavigateUp<cr>", { silent = true })
 vim.keymap.set("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { silent = true })
 
+-- [[ Moving with Homerow keys in insert mode ]]
+vim.keymap.set("i", "<M-k>", "<Up>", { desc = "Move up" })
+vim.keymap.set("i", "<M-h>", "<Left>", { desc = "Move left" })
+vim.keymap.set("i", "<M-l>", "<Right>", { desc = "Move right" })
+vim.keymap.set("i", "<M-j>", "<Down>", { desc = "Move down" })
+
 -- [[ Close window ]]
 vim.keymap.set("n", "<leader>c", ":close<CR>", { silent = true })
 

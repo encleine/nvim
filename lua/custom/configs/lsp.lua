@@ -211,6 +211,8 @@ return function()
 					},
 				},
 			},
+
+			filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "scss" },
 		},
 	}
 
