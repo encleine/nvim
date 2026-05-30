@@ -1,25 +1,11 @@
-local function reload_ghostty(ordinal)
-	vim.fn.system(
-		string.format("cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/current-theme.conf", ordinal)
-	)
-
-	vim.fn.system("pkill -SIGUSR2 ghostty;")
-end
-
 return {
 	theme_picker = function()
-		-- ALL Telescope requires moved inside this function
 		local pickers = require("telescope.pickers")
 		local finders = require("telescope.finders")
 		local conf = require("telescope.config").values
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
-
-		-- The other local requires can also be moved here
-		local settings = require("custom.setting.json")
-		local palettes = require("custom.theme.base").palettes
-		local monokai = require("monokai")
-		local catppuccin = require("catppuccin")
+		local theme = require("custom.theme")
 
 		local colors = function(opts)
 			opts = opts or {}
@@ -36,41 +22,18 @@ return {
 								return
 							end
 
-							local saved_palette = settings.palette()
-							if saved_palette and selection.display == saved_palette.name then
+							local saved = require("custom.setting.json").palette()
+							if saved and selection.display == saved.name then
 								return
 							end
 
-							monokai.setup({})
-							catppuccin.setup({})
-
-							reload_ghostty(selection.ordinal)
-
-							local palette = palettes[selection.display]
-							if palette.theme == "monokai" then
-								monokai.setup({ palette = palette, italics = false })
-								vim.cmd.colorscheme(palette.name)
-								vim.api.nvim_set_hl(0, "LspCodeLens", { fg = palette.green, italic = true })
-							else
-								catppuccin.setup({ flavour = selection.display })
-								vim.cmd.colorscheme("catppuccin")
-								vim.api.nvim_set_hl(0, "LspCodeLens", { fg = palette.teal, italic = true })
-							end
-
-							settings.save_palette(palette)
-							local hooks = require("ibl.hooks")
-							hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-								vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = palette.pink })
-							end)
-
-							vim.cmd("silent! call tpipeline#state#reload()")
-							require("custom.configs.lualine").setup(palette)
+							theme.apply(selection.display, selection.ordinal)
 						end)
 						return true
 					end,
 
 					finder = finders.new_table({
-						results = settings.settings().palettes,
+						results = theme.list(),
 						entry_maker = function(entry)
 							return {
 								value = entry,

@@ -1,8 +1,10 @@
 return function()
-	local palette = require("custom.setting.json").palette()
+	local theme = require("custom.theme")
 	local hooks = require("ibl.hooks")
 	hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-		vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = palette.pink })
+		if theme.current_pink then
+			vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = theme.current_pink })
+		end
 	end)
 
 	require("ibl").setup({
