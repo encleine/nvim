@@ -10,12 +10,12 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- [[ added comment string for sql files ]]
-local group = vim.api.nvim_create_augroup('sqlTabs', { clear = true })
+local tabs_group = vim.api.nvim_create_augroup('sqlTabs', { clear = true })
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	callback = function()
 		vim.opt["tabstop"] = 4
 	end,
-	group = group,
+	group = tabs_group,
 	pattern = 'sql',
 })

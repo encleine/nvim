@@ -1,28 +1,39 @@
 return function()
-	local ffi = require("ffi")
-	local C = ffi.C
-
-	ffi.cdef([[
-		typedef struct {} win_T;
-		typedef struct {
-			int start;  // line number where deepest fold starts
-			int level;  // fold level, when zero other fields are N/A
-			int llevel; // lowest level that starts in v:lnum
-			int lines;  // number of lines from v:lnum to end of closed fold
-		} foldinfo_T;
-		foldinfo_T fold_info(win_T* wp, int lnum);
-	]])
-
 	local function fold_info(args)
 		local lnum = args.lnum
-		local currFold = C.fold_info(args.wp, lnum)
-		local nextFold = C.fold_info(args.wp, lnum + 1)
+		local last_line = vim.api.nvim_buf_line_count(0)
+
+		local level = vim.fn.foldlevel(lnum)
+		local closed_line = vim.fn.foldclosed(lnum)
+		local in_closed = closed_line ~= -1
+
+		local start = false
+		if in_closed then
+			start = closed_line == lnum
+		else
+			start = level > vim.fn.foldlevel(lnum - 1)
+		end
+
+		local last = false
+		if lnum < last_line then
+			local next_level = vim.fn.foldlevel(lnum + 1)
+			local next_closed_line = vim.fn.foldclosed(lnum + 1)
+			local next_starts = false
+			if next_closed_line ~= -1 then
+				next_starts = next_closed_line == lnum + 1
+			else
+				next_starts = next_level > level
+			end
+			last = (next_starts and next_level <= level) or next_level == 0
+		else
+			last = true
+		end
 
 		return {
-			level = currFold.level,
-			closed = currFold.lines > 0,
-			start = currFold.start == lnum,
-			last = nextFold.start == lnum + 1 and nextFold.level <= currFold.level or nextFold.level == 0,
+			level = level,
+			closed = in_closed and (vim.fn.foldclosedend(lnum) ~= lnum),
+			start = start,
+			last = last,
 		}
 	end
 

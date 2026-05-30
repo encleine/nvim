@@ -3,7 +3,7 @@ return {
 
 	-- Detect tabstop and shiftwidth automatically
 
-	"folke/which-key.nvim",
+	{ "folke/which-key.nvim", event = "VeryLazy" },
 
 	{
 		"vimpostor/vim-tpipeline",

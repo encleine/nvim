@@ -60,14 +60,14 @@ require("lazy").setup({
 --    [[  Keymaps ]]
 require("custom.setting")
 
--- [[ Custome theming ]]
+-- [[ Custom theming ]]
 --   [[ telescope ]]
 --   [[ lueline ]]
 --   [[ noice ]]
 --   [[ folds ]]
 require("custom.theme")
 
--- [[ Custome auto cmds ]]
+-- [[ Custom auto cmds ]]
 --   [[ sql comment string ]]
 --   [[ Highlight on yank ]]
 require("custom.autocmd")

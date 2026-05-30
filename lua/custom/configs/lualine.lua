@@ -10,7 +10,7 @@ return {
 				if scope and scope.window == vim.api.nvim_get_current_win() then
 					vim.g.tpipeline_statusline = val
 					vim.g.tpipeline_autoembed = 0
-					vim.cmd("silent! call tpipeline#update()")
+					pcall(vim.cmd, "silent! call tpipeline#update()")
 				end
 				return
 			end

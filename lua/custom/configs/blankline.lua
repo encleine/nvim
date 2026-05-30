@@ -5,8 +5,6 @@ return function()
 		vim.api.nvim_set_hl(0, "blankLine_scope_pink", { fg = palette.pink })
 	end)
 
-	vim.g.rainbow_delimiters = { highlight = "RainbowRed" }
-
 	require("ibl").setup({
 		indent = {
 			char = "┇",

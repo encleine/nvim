@@ -34,7 +34,7 @@ return {
 		{ "gr", "<cmd>Telescope lsp_references<cr>", desc = "[G]oto [R]eferences" },
 		{
 			"<leader>st",
-			require("custom.configs.picker").theme_picker,
+			function() require("custom.configs.picker").theme_picker() end,
 			desc = " [S]earch [T]hemes",
 		},
 		{ "gw", "<cmd>Telescope git_worktree<cr>", desc = "[G]it [W]orktree" },
