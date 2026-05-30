@@ -231,6 +231,7 @@ return function()
 		"rust_analyzer",
 		"pyright",
 		"biome",
+		"cssls",
 	}
 
 	vim.list_extend(ensure_installed, vim.tbl_keys(servers))
