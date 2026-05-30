@@ -141,7 +141,8 @@ return function()
 
 			filetypes = { "lua" },
 			root_markers = {
-				{ ".luarc.json", ".luarc.jsonc" },
+				".luarc.json",
+				".luarc.jsonc",
 				".emmyrc.json",
 				".luacheckrc",
 				".stylua.toml",
@@ -161,10 +162,10 @@ return function()
 		},
 
 		jsonls = {
-			on_init = function(client)
-				client.server_capabilities.documentFormattingProvider = false
-				client.server_capabilities.documentRangeFormattingProvider = false
-			end,
+			handlers = {
+				["textDocument/formatting"] = function() end,
+			},
+			filetypes = { "json", "jsonc" },
 			settings = {
 				json = {
 					schemas = require("schemastore").json.schemas(),
@@ -174,6 +175,7 @@ return function()
 		},
 
 		yamlls = {
+			filetypes = { "yaml", "yml" },
 			settings = {
 				yaml = {
 					schemaStore = {
@@ -186,10 +188,10 @@ return function()
 		},
 
 		vtsls = {
-			on_init = function(client)
-				client.server_capabilities.documentFormattingProvider = false
-				client.server_capabilities.documentRangeFormattingProvider = false
-			end,
+			handlers = {
+				["textDocument/formatting"] = function() end,
+			},
+			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 
 			settings = {
 				vtsls = {
@@ -247,11 +249,5 @@ return function()
 		require("mason-lspconfig").setup({ automatic_enable = { exclude = {} } })
 	end
 
-	vim.api.nvim_create_autocmd("User", {
-		group = vim.api.nvim_create_augroup("lsp-setup", { clear = true }),
-		pattern = "SnacksDashboardOpened",
-		callback = function()
-			vim.schedule(setup_lsps)
-		end,
-	})
+	setup_lsps()
 end

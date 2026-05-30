@@ -7,7 +7,7 @@ return {
 
 	{
 		"vimpostor/vim-tpipeline",
-		-- event = "VeryLazy",
+		event = "VeryLazy",
 	},
 
 	{
@@ -24,5 +24,4 @@ return {
 	},
 
 	{ "NMAC427/guess-indent.nvim", opts = {} },
-	"tpope/vim-fugitive",
 }

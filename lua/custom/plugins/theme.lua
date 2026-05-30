@@ -1,13 +1,15 @@
 return {
 	{
 		"encleine/monokai.nvim",
-		priority = 1000,
+		priority = 2000,
 		-- Configure your theme's setup function
+		cond = function()
+			local palette = require("custom.setting.json").palette()
+			return palette.theme == "monokai"
+		end,
+
 		config = function()
 			local palette = require("custom.setting.json").palette()
-			if palette.theme ~= "monokai" then
-				return false
-			end
 
 			require("monokai").setup({ palette = palette, italics = false })
 			vim.cmd.colorscheme(palette.name)
@@ -15,15 +17,16 @@ return {
 		end,
 	},
 	{
-		priority = 1000,
+		priority = 2000,
 		"catppuccin/nvim",
 		name = "catppuccin",
+		cond = function()
+			local palette = require("custom.setting.json").palette()
+			return palette.theme == "catppuccin"
+		end,
 		-- Configure your theme's setup function
 		config = function()
 			local palette = require("custom.setting.json").palette()
-			if palette.theme ~= "catppuccin" then
-				return false
-			end
 
 			require("catppuccin").setup({ flavour = palette.name })
 			vim.cmd.colorscheme("catppuccin")

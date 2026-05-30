@@ -1,4 +1,4 @@
--- [[ added comment string for sql files ]]
+-- [[ set tabs for ts/js files ]]
 local group = vim.api.nvim_create_augroup("tsTabs", { clear = true })
 
 vim.api.nvim_create_autocmd("BufEnter", {

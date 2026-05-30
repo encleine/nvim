@@ -1,19 +1,11 @@
 local M = {}
 
 function M.get_git_root()
-	local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
-	if not handle then
+	local result = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null")
+	if vim.v.shell_error ~= 0 then
 		return nil
 	end
-
-	local result = handle:read("*a")
-	handle:close()
-
-	if result and result ~= "" then
-		return result:gsub("\n", "")
-	end
-
-	return nil
+	return vim.trim(result)
 end
 
 function M.Get_git_repo_status()
@@ -23,14 +15,11 @@ function M.Get_git_repo_status()
 		return
 	end
 
-	-- Run `git status --porcelain` to get the repository status
-	local handle = io.popen("git status --porcelain 2>/dev/null")
-	if not handle then
+	local result = vim.fn.system("git -C " .. vim.fn.shellescape(git_root) .. " status --porcelain")
+
+	if vim.v.shell_error ~= 0 then
 		return
 	end
-
-	local result = handle:read("*a")
-	handle:close()
 
 	local status_dict = {
 		added = 0,
@@ -40,16 +29,23 @@ function M.Get_git_repo_status()
 	}
 
 	for line in result:gmatch("[^\r\n]+") do
-		local change = line:sub(1, 2)
+		local staged = line:sub(1, 1)
+		local working = line:sub(2, 2)
 
-		if change:find("^A") then
-			status_dict.added = status_dict.added + 1
-		elseif change:find("^ M") then
-			status_dict.changed = status_dict.changed + 1
-		elseif change:find("^D") then
-			status_dict.removed = status_dict.removed + 1
-		elseif change:find("??") then
+		if staged == "?" then
 			status_dict.untracked = status_dict.untracked + 1
+		else
+			if staged == "A" then
+				status_dict.added = status_dict.added + 1
+			end
+
+			if staged == "M" or working == "M" then
+				status_dict.changed = status_dict.changed + 1
+			end
+
+			if staged == "D" or working == "D" or staged == "R" then
+				status_dict.removed = status_dict.removed + 1
+			end
 		end
 	end
 

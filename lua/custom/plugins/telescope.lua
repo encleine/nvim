@@ -25,7 +25,7 @@ return {
 			"<cmd>Telescope current_buffer_fuzzy_find<cr>",
 			desc = "[/] Fuzzily search in current buffer",
 		},
-		{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Search [G]it [B]branches" },
+		{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Search [G]it [B]ranches" },
 		{ "<leader>gd", "<cmd>Telescope git_status<cr>", desc = "Search [G]it [D]if Files" },
 		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "[F]ind [F]iles" },
 		{ "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = " [S]earch using live [G]rep" },

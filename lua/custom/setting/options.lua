@@ -42,12 +42,9 @@ vim.o.termguicolors = true
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 vim.o.tabstop = 4
--- expandtab sw=4 sts=4
-vim.opt["tabstop"] = 4
-vim.opt["shiftwidth"] = 4
-vim.expandtab = true
+vim.o.expandtab = true
 
--- fold optios
+-- fold options
 vim.o.foldcolumn = "2"
 
 vim.o.foldlevel = 99

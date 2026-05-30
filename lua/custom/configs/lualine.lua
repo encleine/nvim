@@ -24,8 +24,17 @@ return {
 				lualine_c = { "selectioncount" },
 				lualine_x = {
 					{
-						require("noice").api.status.command.get,
-						cond = require("noice").api.status.command.has,
+						function()
+							local ok, noice = pcall(require, "noice")
+							if ok and noice.api.status.command then
+								return noice.api.status.command.get()
+							end
+							return ""
+						end,
+						cond = function()
+							local ok, noice = pcall(require, "noice")
+							return ok and noice.api.status.command.has()
+						end,
 					},
 				},
 				lualine_y = { "" },

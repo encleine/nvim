@@ -1,4 +1,4 @@
--- [[ added comment string for sql files ]]
+-- [[ set tabs for go files ]]
 local group = vim.api.nvim_create_augroup("goTabs", { clear = true })
 
 vim.api.nvim_create_autocmd("BufEnter", {

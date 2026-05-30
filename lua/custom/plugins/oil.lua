@@ -5,10 +5,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 
-	lazy = false,
-	config = function()
-		require("custom.configs.oil")
-	end,
+	config = require("custom.configs.oil"),
 
 	keys = {
 		{

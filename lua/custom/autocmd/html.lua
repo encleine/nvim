@@ -1,5 +1,5 @@
--- [[ added comment string for sql files ]]
-local group = vim.api.nvim_create_augroup('htlmTabs', { clear = true })
+-- [[ set tabs for html files ]]
+local group = vim.api.nvim_create_augroup('htmlTabs', { clear = true })
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	callback = function()

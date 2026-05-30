@@ -1,6 +1,6 @@
 local function reload_ghostty(ordinal)
 	vim.fn.system(
-		string.format("cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/curent-theme.conf*", ordinal)
+		string.format("cat ~/.config/ghostty/themes/%s > ~/.config/ghostty/themes/current-theme.conf", ordinal)
 	)
 
 	vim.fn.system("pkill -SIGUSR2 ghostty;")

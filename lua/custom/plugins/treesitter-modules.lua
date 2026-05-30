@@ -5,11 +5,6 @@ return {
 	---@module 'treesitter-modules'
 	---@type ts.mod.UserConfig
 	opts = {
-		highlight = {
-			enable = true,
-			disable = false,
-			additional_vim_regex_highlighting = true,
-		},
 
 		incremental_selection = {
 			enable = true,
