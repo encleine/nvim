@@ -8,7 +8,7 @@ local cache = {}
 
 local function read_json_file(filepath, cache_key)
 	local key = cache_key or filepath
-	local now = vim.loop.now()
+	local now = vim.uv.now()
 
 	local cached = cache[key]
 	if cached and now - cached.loaded_at < cache_duration * 1000 then

@@ -1,5 +1,5 @@
 return function()
-	local DropDownThem = { winblend = 10 }
+	local DropDownTheme = { winblend = 10 }
 	local NoPreview = { theme = "dropdown", winblend = 10, previewer = false }
 	local actions = require("telescope.actions")
 
@@ -18,13 +18,13 @@ return function()
 
 		pickers = {
 			find_files = NoPreview,
-			current_buffer_fuzzy_find = DropDownThem,
+			current_buffer_fuzzy_find = DropDownTheme,
 			git_branches = NoPreview,
-			live_grep = DropDownThem,
-			buffers = DropDownThem,
-			git_status = DropDownThem,
-			lsp_document_symbols = DropDownThem,
-			lsp_dynamic_workspace_symbols = DropDownThem,
+			live_grep = DropDownTheme,
+			buffers = DropDownTheme,
+			git_status = DropDownTheme,
+			lsp_document_symbols = DropDownTheme,
+			lsp_dynamic_workspace_symbols = DropDownTheme,
 		},
 		extensions = {
 			fzf = {},
